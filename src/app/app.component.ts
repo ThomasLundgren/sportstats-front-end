@@ -13,7 +13,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.service.getSports()
-    .subscribe( data => { this.service.setUsers(data); console.log(data); });
+    .subscribe( data => { this.service.setSports(data); console.log(data); });
   }
 
 }
