@@ -1,0 +1,11 @@
+{
+    "/api/sport/all": {
+        "target": "http://gruppmalin.jls-sto1.elastx.net/api/sport/all",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api/sport/all": ""
+          }
+    }
+}
