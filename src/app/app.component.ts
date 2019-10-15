@@ -7,7 +7,7 @@ import { GetSportsService } from './service/get-sports-service.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'sportstats-front-end';
+  title = 'sportstats-system';
 
   constructor(private service: GetSportsService) { }
 
