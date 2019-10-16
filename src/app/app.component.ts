@@ -8,7 +8,7 @@ import { Sport } from './model/sport.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'sportstats-system';
+  title = 'Sportstats';
   sports: Sport[] = [];
   tests: number[] = [1, 2, 3, 4];
 
