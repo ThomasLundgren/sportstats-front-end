@@ -1,3 +1,17 @@
-<div class="navbar navbar-expand-sm bg-dark">
-  <h3 style = "color:white">Sportstats</h3>
-</div>
+<nav class="navbar navbar-expand-sm bg-dark">
+    <div class="navbar-header">
+      <a>
+        <h3 style="color:white; padding-right:20px">Sportstats</h3>
+      </a>
+    </div>
+    <ul class="nav ba-navbar-nav nav-tabs ">
+      <li class="nav-item dropdown" *ngFor="let sport of sports">
+        <a style="color:white" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">{{sport.name}}</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Link 1</a>
+          <a class="dropdown-item" href="#">Link 2</a>
+          <a class="dropdown-item" href="#">Link 3</a>
+        </div>
+      </li>
+    </ul>
+</nav>
