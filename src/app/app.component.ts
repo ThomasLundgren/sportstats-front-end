@@ -1,28 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { GetSportsService } from './service/get-sports-service.service';
-import { Sport } from './model/sport.model';
+import { Component, OnInit } from "@angular/core";
+import { SportService } from "./service/sport.service";
+import { Sport } from "./model/sport.model";
+import { LeagueService } from "./service/league.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  title = 'Sportstats';
+  title = "Sportstats";
   sports: Sport[] = [];
- 
-  constructor(private getSportsService: GetSportsService) { }
+
+  constructor(private sportService: SportService, private leagueService: LeagueService) {}
 
   ngOnInit() {
     this.getSports();
   }
 
   getSports(): void {
-    this.getSportsService.getSports()
-      .subscribe(data => {
-        this.sports = data;
-        console.log(data);
-      });
+    this.sportService.getSports().subscribe(data => {
+      this.sports = data;
+      console.log(data);
+      this.setLeagues();
+    });
   }
 
+  setLeagues() {
+    this.sports.forEach(sport => {
+      this.leagueService.getLeaguesBySportId(sport.id).subscribe(data => {
+        sport.leagues = data;
+        console.log(data);
+      });
+    });
+  }
 }
