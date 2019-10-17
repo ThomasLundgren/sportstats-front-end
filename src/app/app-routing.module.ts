@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Sport } from "./model/sport.model";
@@ -9,11 +10,11 @@ import { HomeComponent } from './component/home/home.component';
 
 
 const routes: Routes = [
-  { 
+  {
     path: '',
-    component: HomeComponent,
+    component: HomeComponent
    },
-  { 
+  {
     path: 'sport/:id',
     component: SportComponent,
     data: Sport
@@ -30,11 +31,7 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {
-
   sports: Sport[];
 
-  constructor() {
-
-  }
-
- }
+  constructor() {}
+}
