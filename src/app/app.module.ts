@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { SportComponent } from './component/sport/sport.component';
+import { HomeComponent } from './component/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    SportComponent
+    SportComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
