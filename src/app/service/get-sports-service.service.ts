@@ -12,7 +12,10 @@ export class GetSportsService {
   constructor(private http: HttpClient) { }
 
   getSports() {
+    //Dev
     return this.http.get<Sport[]>("/api/sport/all");
+    //Prod
+    //return this.http.get<Sport[]>("http://gruppmalin.jls-sto1.elastx.net/api/sport/all");
   }
 
   setSports(sports: Sport[]) {

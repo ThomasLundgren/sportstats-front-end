@@ -10,8 +10,7 @@ import { Sport } from './model/sport.model';
 export class AppComponent implements OnInit {
   title = 'Sportstats';
   sports: Sport[] = [];
-  tests: number[] = [1, 2, 3, 4];
-
+ 
   constructor(private getSportsService: GetSportsService) { }
 
   ngOnInit() {
@@ -23,7 +22,6 @@ export class AppComponent implements OnInit {
       .subscribe(data => {
         this.sports = data;
         console.log(data);
-        //this.getSportsService.setSports(data); 
       });
   }
 
