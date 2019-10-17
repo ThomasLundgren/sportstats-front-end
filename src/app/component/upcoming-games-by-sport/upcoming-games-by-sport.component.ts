@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Season } from 'src/app/model/season.model';
-import { ActivatedRoute } from '@angular/router';
-import { SeasonService } from 'src/app/service/season.service';
+import { Season } from '../../model/season.model';
+import { SeasonService } from '../../service/season.service';
 
 @Component({
   selector: 'app-upcoming-games-by-sport',
