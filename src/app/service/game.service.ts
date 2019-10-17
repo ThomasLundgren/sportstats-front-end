@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Game } from '../model/game.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getGamesBySeasonId(seasonId: number) {
+    return this.http.get<Game[]>("/api/game/season/" + seasonId);
+  }
 }
