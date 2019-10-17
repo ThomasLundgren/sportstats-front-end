@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { Sport } from "src/app/model/sport.model";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { SportService } from "src/app/service/sport.service";
 
 @Component({
   selector: "app-sport",
   templateUrl: "./sport.component.html",
-  styleUrls: ["./sport.component.scss"],
+  styleUrls: ["./sport.component.scss"]
 })
 export class SportComponent implements OnInit {
   sport: Sport = {

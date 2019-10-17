@@ -8,6 +8,7 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { SportComponent } from './component/sport/sport.component';
 import { LeagueComponent } from './component/league/league.component';
 import { HomeComponent } from './component/home/home.component';
+import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-sport/upcoming-games-by-sport.component';
 
 @NgModule({
    declarations: [
@@ -15,7 +16,8 @@ import { HomeComponent } from './component/home/home.component';
       NavbarComponent,
       SportComponent,
       LeagueComponent,
-      HomeComponent
+      HomeComponent,
+      UpcomingGamesBySportComponent
    ],
    imports: [
       BrowserModule,

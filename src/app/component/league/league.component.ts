@@ -13,7 +13,8 @@ export class LeagueComponent implements OnInit {
   league: League = {
     name: '',
     id: 0,
-    sportId: 0
+    sportId: 0,
+    seasons: []
   };
 
   constructor(private route:ActivatedRoute, private leagueService: LeagueService) { }
