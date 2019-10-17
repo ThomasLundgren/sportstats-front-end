@@ -25,7 +25,7 @@
                 <h6>{{sport.name}}</h6>
               </a>
               <div class="dropdown-divider"></div>
-              <a [routerLink] = "['/sport/league', league.id]" class="dropdown-item" *ngFor="let league of sport.leagues" href="#">{{league.name}}</a>
+              <a class="dropdown-item" *ngFor="let league of sport.leagues" href="#">{{league.name}}</a>
             </div>
           </li>
         </ng-template>

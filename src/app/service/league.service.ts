@@ -11,7 +11,4 @@ export class LeagueService {
   getLeaguesBySportId(sportId: number) {
     return this.http.get<League[]>("/api/league/sport/" + sportId);
   }
-  getLeagueById(leagueId: string) {
-    return this.http.get<League>("/api/league/" + leagueId);
-  }
 }
