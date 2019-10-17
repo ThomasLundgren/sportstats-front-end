@@ -18,13 +18,6 @@ export class GetLeagueService {
     //Dev
     leagueIds.forEach(e => {
 
-      let json = this.http.get<League>("/api/league/" + e);
-
-      let league = new League(JSON.parse(json));
-
-      //league = this.http.get<League>("/api/league/" + e);
-
-      this.leagues.push();
     });
 
     //Prod
