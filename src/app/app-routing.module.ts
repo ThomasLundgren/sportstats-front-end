@@ -10,7 +10,7 @@ import { HomeComponent } from './component/home/home.component';
 const routes: Routes = [
   { 
     path: '',
-    component: HomeComponent,
+    component: HomeComponent
    },
   { 
     path: 'sport/:id',
