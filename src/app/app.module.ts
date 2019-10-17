@@ -9,6 +9,7 @@ import { SportComponent } from './component/sport/sport.component';
 import { LeagueComponent } from './component/league/league.component';
 import { HomeComponent } from './component/home/home.component';
 import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-sport/upcoming-games-by-sport.component';
+import { GameComponent } from './component/game/game.component';
 
 @NgModule({
    declarations: [
@@ -17,7 +18,8 @@ import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-spo
       SportComponent,
       LeagueComponent,
       HomeComponent,
-      UpcomingGamesBySportComponent
+      UpcomingGamesBySportComponent,
+      GameComponent
    ],
    imports: [
       BrowserModule,
