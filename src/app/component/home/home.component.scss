@@ -1,0 +1,40 @@
+.carousel .item {
+  height: 350px;
+}
+
+.item img {
+  position: absolute;
+  object-fit: contain;
+  top: 0;
+  left: 0;
+  min-height: 350px;
+}
+
+.grid12-6 {
+  position: relative;
+}
+.grid12-6 .inner_box {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 35px;
+  text-align: center;
+}
+.grid12-6 .inner_box h2 {
+  font-family: arial;
+  text-align: center;
+  font-size: 26px;
+  font-weight: normal;
+  color: #777;
+}
+.grid12-6 .inner_box button {
+  background: #aaa;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  padding: 10px 30px;
+}
