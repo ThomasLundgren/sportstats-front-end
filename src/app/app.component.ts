@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   getSports(): void {
     this.sportService.getSports().subscribe(data => {
       this.sports = data;
-      console.log(data);
       this.setLeagues();
     });
   }
@@ -30,7 +29,6 @@ export class AppComponent implements OnInit {
     this.sports.forEach(sport => {
       this.leagueService.getLeaguesBySportId(sport.id).subscribe(data => {
         sport.leagues = data;
-        console.log(data);
       });
     });
   }
