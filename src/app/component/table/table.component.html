@@ -1,3 +1,35 @@
-<p>
-  table works!
-</p>
+<div id="tabel" class="container-fluid">
+  <h3 class="pricing header">Season: {{table.season.startDate}} - {{table.season.endDate}}</h3>
+  <table class="table table-striped">
+    <thead class="thead-light ">
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Team</th>
+        <th scope="col">GP</th>
+        <th scope="col">GW</th>
+        <th scope="col">GT</th>
+        <th scope="col">GL</th>
+        <th scope="col">GW - sudden</th>
+        <th scope="col">Goals let in</th>
+        <th scope="col">Goals made</th>
+        <th scope="col">+/-</th>
+        <th scope="col">P</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of table.tableRows; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{row.team.name}}</td>
+        <td>{{row.gamesPlayed}}</td>
+        <td>{{row.wins}}</td>
+        <td>{{row.ties}}</td>
+        <td>{{row.losses}}</td>
+        <td>{{row.suddenWins}}</td>
+        <td>{{row.backwardGoal}}</td>
+        <td>{{row.forwardGoal}}</td>
+        <td>{{row.goalDiff}}</td>
+        <td>{{row.points}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -11,7 +11,7 @@ export class SeasonService {
   constructor(private http: HttpClient, private leagueService: LeagueService) {}
 
   getSeasonsByLeagueId(leagueId: number) {
-    return this.http.get<Season[]>("/api/season/all/" + leagueId);
+    return this.http.get<Season[]>("/api/season/all/league/" + leagueId);
   }
 
 }
