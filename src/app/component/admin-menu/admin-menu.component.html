@@ -1,11 +1,61 @@
 <div class="sidebar">
-    <a class="active">
-        <fa-icon [icon]="faUserCog"></fa-icon> Admin
-    </a>
-    <a>
-        <fa-icon [icon]="faUserPlus"></fa-icon> Add
-    </a>
-    <a>
-        <fa-icon [icon]="faUserEdit"></fa-icon> Update
-    </a>
+    <ul id="adminUL" class="navbar-nav">
+
+        <li>
+            <a (click)="setActiveClass($event)" class="active">
+                <fa-icon [icon]="faUserCog"></fa-icon> Admin
+            </a>
+        </li>
+
+        <li class="dropdown dropright">
+            <a class="dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                (click)="setActiveClass($event)" >
+                <fa-icon [icon]="faUserPlus"></fa-icon> Add
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                <a [routerLink]="[]" class="dropdown-item">
+                    Sport
+                </a>
+                <a [routerLink]="[]" class="dropdown-item">
+                    League
+                </a>
+                <a [routerLink]="[]" class="dropdown-item">
+                    Season
+                </a>
+                <a [routerLink]="[]" class="dropdown-item">
+                    Round
+                </a>
+                <a [routerLink]="[]" class="dropdown-item">
+                    Team
+                </a>
+                <a [routerLink]="[]" class="dropdown-item">
+                    Period
+                </a>
+                <a [routerLink]="[]" class="dropdown-item">
+                    Goal
+                </a>
+                <a [routerLink]="[]" class="dropdown-item">
+                    Arena
+                </a>
+
+            </div>
+        </li>
+
+        <li class="dropdown dropright">
+            <a (click)="setActiveClass($event)" class="dropdown-toggle" id="dropdown02" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <fa-icon [icon]="faUserEdit"></fa-icon> Update
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown02">
+                <a [routerLink]="[]" class="dropdown-item" href="#">
+                    Connect Team To Season
+                </a>
+                <a [routerLink]="[]" class="dropdown-item" href="#">
+                    Set Team Points For Game Id
+                </a>
+            </div>
+        </li>
+
+    </ul>
+
 </div>

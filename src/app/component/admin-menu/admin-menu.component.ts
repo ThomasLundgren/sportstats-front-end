@@ -17,4 +17,19 @@ export class AdminMenuComponent implements OnInit {
   ngOnInit() {
   }
 
+  setActiveClass(event) {
+
+    var list = document.getElementById("adminUL");
+    var anchors = list.getElementsByTagName("a");
+    var arr = [].slice.call(anchors);
+
+    arr.forEach(e => {
+      e.classList.remove("active");
+    });
+    
+    event.currentTarget.classList.add("active");
+ 
+  }
+
+
 }
