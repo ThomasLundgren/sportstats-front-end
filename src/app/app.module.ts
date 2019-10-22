@@ -12,6 +12,7 @@ import { GameComponent } from './component/game/game.component';
 import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-sport/upcoming-games-by-sport.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminComponent } from './component/admin/admin.component';
+import { AdminMenuComponent } from './component/admin-menu/admin-menu.component';
 
 @NgModule({
    declarations: [
@@ -22,7 +23,8 @@ import { AdminComponent } from './component/admin/admin.component';
       HomeComponent,
       UpcomingGamesBySportComponent,
       GameComponent,
-      AdminComponent
+      AdminComponent,
+      AdminMenuComponent
    ],
    imports: [
       BrowserModule,
