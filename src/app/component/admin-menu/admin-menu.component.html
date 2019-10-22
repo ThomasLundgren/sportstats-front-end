@@ -2,7 +2,7 @@
     <ul id="adminUL" class="navbar-nav">
 
         <li>
-            <a (click)="setActiveClass($event)" class="active">
+            <a (click)="setActiveClass($event)" class="active text-center">
                 <fa-icon [icon]="faUserCog"></fa-icon> Admin
             </a>
         </li>
@@ -10,7 +10,7 @@
         <div class="dropdown-divider" style="border-color: lightgray;"></div>
 
         <li class="dropdown dropright">
-            <a class="dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            <a class="dropdown-toggle text-center" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 (click)="setActiveClass($event)" >
                 <fa-icon [icon]="faUserPlus"></fa-icon> Add
             </a>
@@ -44,7 +44,7 @@
         </li>
 
         <li class="dropdown dropright">
-            <a (click)="setActiveClass($event)" class="dropdown-toggle" id="dropdown02" data-toggle="dropdown" aria-haspopup="true"
+            <a (click)="setActiveClass($event)" class="dropdown-toggle text-center" id="dropdown02" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
                 <fa-icon [icon]="faUserEdit"></fa-icon> Update
             </a>
