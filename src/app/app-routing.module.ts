@@ -7,6 +7,7 @@ import { League } from './model/league.model';
 
 import { SportComponent } from './component/sport/sport.component';
 import { HomeComponent } from './component/home/home.component';
+import { AdminComponent } from './component/admin/admin.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
     path: 'sport/league/:id',
     component: LeagueComponent,
     data: League
+   },
+   { 
+    path: 'admin',
+    component: AdminComponent,
    },
 ];
 

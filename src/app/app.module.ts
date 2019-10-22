@@ -11,6 +11,7 @@ import { HomeComponent } from './component/home/home.component';
 import { GameComponent } from './component/game/game.component';
 import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-sport/upcoming-games-by-sport.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AdminComponent } from './component/admin/admin.component';
 
 @NgModule({
    declarations: [
@@ -20,7 +21,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
       LeagueComponent,
       HomeComponent,
       UpcomingGamesBySportComponent,
-      GameComponent
+      GameComponent,
+      AdminComponent
    ],
    imports: [
       BrowserModule,
