@@ -10,6 +10,8 @@ import { LeagueComponent } from './component/league/league.component';
 import { HomeComponent } from './component/home/home.component';
 import { GameComponent } from './component/game/game.component';
 import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-sport/upcoming-games-by-sport.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AdminComponent } from './component/admin/admin.component';
 
 @NgModule({
    declarations: [
@@ -19,12 +21,14 @@ import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-spo
       LeagueComponent,
       HomeComponent,
       UpcomingGamesBySportComponent,
-      GameComponent
+      GameComponent,
+      AdminComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
-      HttpClientModule
+      HttpClientModule,
+      FontAwesomeModule
    ],
    providers: [],
    bootstrap: [
