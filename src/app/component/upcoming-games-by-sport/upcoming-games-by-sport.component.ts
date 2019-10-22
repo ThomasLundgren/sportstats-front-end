@@ -14,7 +14,6 @@ export class UpcomingGamesBySportComponent implements OnInit {
   constructor(private seasonService: SeasonService) { }
 
   ngOnInit() {
-    this.seasons = this.seasonService.getSeasonsBySportId(this.sportId);
   }
 
 }
