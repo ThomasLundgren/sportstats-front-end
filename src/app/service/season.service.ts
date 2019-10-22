@@ -14,16 +14,4 @@ export class SeasonService {
     return this.http.get<Season[]>("/api/season/all/" + leagueId);
   }
 
-  getSeasonsBySportId(sportId: number) {
-    let seasons = [];
-    
-    this.leagueService.getLeaguesBySportId(sportId).subscribe(leagues => { 
-      leagues.forEach(league => {
-        this.getSeasonsByLeagueId(league.id).subscribe(s => {
-          s.forEach(season => seasons.push(s));
-        });
-      });
-    });
-    return seasons;
-  }
 }
