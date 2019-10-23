@@ -40,7 +40,7 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: AdminMainComponent,
+        component: AdminMainComponent
       },
       {
         path: "addsport",

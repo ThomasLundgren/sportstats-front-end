@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SportService } from 'src/app/service/sport.service';
+import { Sport } from 'src/app/model/sport.model';
 
 @Component({
   selector: 'app-admin-add-league',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminAddLeagueComponent implements OnInit {
 
-  constructor() { }
+  sports: Sport[] = [];
+
+  constructor(private sportService: SportService) {
+    
+   }
 
   ngOnInit() {
+    this.getSports();
+  }
+
+  getSports(): void {
+    this.sportService.getSports().subscribe(data => {
+      this.sports = data;
+    });
   }
 
 }

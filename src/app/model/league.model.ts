@@ -5,9 +5,4 @@ export class League {
     name: string;
     sportId: number;
     seasons: Season[];
-
-    constructor(obj?: any) {
-        Object.assign(this, obj);
-    }
-
 }

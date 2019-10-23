@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-admin-main',
@@ -10,6 +10,7 @@ export class AdminMainComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
