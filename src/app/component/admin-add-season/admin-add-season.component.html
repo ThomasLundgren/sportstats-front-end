@@ -2,7 +2,7 @@
     <h1 class="text-left">Add Season</h1>
     <form [formGroup]="addSeasonForm" (ngSubmit)="onSubmit()">
 
-            <!--
+        <!--
             startDate: Date;
             endDate: Date;
             leagueId: number;
@@ -11,11 +11,36 @@
 
         <div class="form-group">
             <label for="sport">Sport</label>
-            <select class="form-control" id="sport" required>
+            <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sport" required>
                 <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
             </select>
+
+            <div *ngIf="leagues && leagues.length > 0; then showLeagueDropDown else promptNoLeaguesForSelectedSport">
+            </div>
+
+            <ng-template #showLeagueDropDown>
+                <label for="league">League</label>
+                <select #selectLeague class="form-control" id="league" formControlName="leagueId" required>
+                    <option *ngFor="let league of leagues" value={{league.id}}>{{league.name}}</option>
+                </select>
+                <label for="roundLimit">Number of rounds</label>
+                <input type="number" formControlName="roundLimit" name="roundLimit" class="form-control" required>
+                <label for="startDate">Start date</label>
+                <input type="date" formControlName="startDate" name="startDate" class="form-control" required>
+                <label for="endDate">End date</label>
+                <input type="date" formControlName="endDate" name="endDate" class="form-control" required>
+            </ng-template>
+
+            <ng-template #promptNoLeaguesForSelectedSport>
+                <p class="text-danger text-left">There are currently no leagues for the selected sport.</p>
+            </ng-template>
+
+
         </div>
-        <button type="reset" class="btn btn-warning btn-block">Reset</button>
+
+
+
+        <button type="reset" (click)="onReset()" class="btn btn-warning btn-block">Reset</button>
         <button type="submit" class="btn btn-success btn-block">Submit</button>
     </form>
 </div>

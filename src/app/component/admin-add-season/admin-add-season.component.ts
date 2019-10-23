@@ -3,6 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { LeagueService } from 'src/app/service/league.service';
 import { Sport } from 'src/app/model/sport.model';
 import { SportService } from 'src/app/service/sport.service';
+import { ConsoleReporter } from 'jasmine';
+import { League } from 'src/app/model/league.model';
 
 @Component({
   selector: 'app-admin-add-season',
@@ -12,6 +14,7 @@ import { SportService } from 'src/app/service/sport.service';
 export class AdminAddSeasonComponent implements OnInit {
 
   sports: Sport[] = [];
+  leagues: League[] = [];
 
   addSeasonForm = new FormGroup({
     leagueId: new FormControl(''),
@@ -32,17 +35,27 @@ export class AdminAddSeasonComponent implements OnInit {
     });
   }
 
-  getLeagues() {
-    this.sports.forEach(sport => {
-      this.leagueService.getLeaguesBySportId(sport.id).subscribe(data => {
-        sport.leagues = data;
-      });
+  getLeaguesBySportId(sportId) {
+    this.leagueService.getLeaguesBySportId(sportId).subscribe(data => {
+      this.leagues = data;
+      console.log(data);
     });
   }
 
   onSubmit() {
     console.log(this.addSeasonForm.value);
-    //this.addSeasonForm.controls.name.reset();
+    this.addSeasonForm.controls.roundLimit.reset();
+    //this.addSeasonForm.controls.startDate.reset();
+    //this.addSeasonForm.controls.endDate.reset();
+  }
+
+  onReset() {
+    this.leagues = [];
+  }
+
+  sportChanged(sportId){
+    console.log(sportId);
+    this.getLeaguesBySportId(sportId);
   }
 
 }
