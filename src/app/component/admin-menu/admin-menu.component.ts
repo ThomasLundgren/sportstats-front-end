@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faUserPlus, faUserEdit, faUserCog } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { ConsoleReporter } from 'jasmine';
 
 @Component({
   selector: 'app-admin-menu',
@@ -12,7 +14,7 @@ export class AdminMenuComponent implements OnInit {
   faUserEdit = faUserEdit;
   faUserCog = faUserCog;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -28,8 +30,7 @@ export class AdminMenuComponent implements OnInit {
     });
     
     event.currentTarget.classList.add("active");
- 
-  }
 
+  }
 
 }

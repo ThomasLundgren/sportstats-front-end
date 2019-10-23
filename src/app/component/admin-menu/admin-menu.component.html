@@ -2,7 +2,7 @@
     <ul id="adminUL" class="navbar-nav">
 
         <li>
-            <a (click)="setActiveClass($event)" class="active text-center">
+            <a routerLink="/admin" (click)="setActiveClass($event)" class="active text-center">
                 <fa-icon [icon]="faUserCog"></fa-icon> Admin
             </a>
         </li>
@@ -15,28 +15,28 @@
                 <fa-icon [icon]="faUserPlus"></fa-icon> Add
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                <a [routerLink]="[]" class="dropdown-item">
+                <a [routerLink]="['addsport']" class="dropdown-item">
                     Sport
                 </a>
-                <a [routerLink]="[]" class="dropdown-item">
+                <a [routerLink]="['addleague']" class="dropdown-item">
                     League
                 </a>
-                <a [routerLink]="[]" class="dropdown-item">
+                <a [routerLink]="['addseason']" class="dropdown-item">
                     Season
                 </a>
-                <a [routerLink]="[]" class="dropdown-item">
+                <a [routerLink]="['addround']" class="dropdown-item">
                     Round
                 </a>
-                <a [routerLink]="[]" class="dropdown-item">
+                <a [routerLink]="['addteam']" class="dropdown-item">
                     Team
                 </a>
-                <a [routerLink]="[]" class="dropdown-item">
+                <a [routerLink]="['addperiod']" class="dropdown-item">
                     Period
                 </a>
-                <a [routerLink]="[]" class="dropdown-item">
+                <a [routerLink]="['addgoal']" class="dropdown-item">
                     Goal
                 </a>
-                <a [routerLink]="[]" class="dropdown-item">
+                <a [routerLink]="['addarena']" class="dropdown-item">
                     Arena
                 </a>
 

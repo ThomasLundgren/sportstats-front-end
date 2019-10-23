@@ -13,6 +13,15 @@ import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-spo
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminComponent } from './component/admin/admin.component';
 import { AdminMenuComponent } from './component/admin-menu/admin-menu.component';
+import { AdminMainComponent } from './component/admin-main/admin-main.component';
+import { AdminAddSportComponent } from './component/admin-add-sport/admin-add-sport.component';
+import { AdminAddLeagueComponent } from './component/admin-add-league/admin-add-league.component';
+import { AdminAddSeasonComponent } from './component/admin-add-season/admin-add-season.component';
+import { AdminAddRoundComponent } from './component/admin-add-round/admin-add-round.component';
+import { AdminAddTeamComponent } from './component/admin-add-team/admin-add-team.component';
+import { AdminAddPeriodComponent } from './component/admin-add-period/admin-add-period.component';
+import { AdminAddGoalComponent } from './component/admin-add-goal/admin-add-goal.component';
+import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-arena.component';
 
 @NgModule({
    declarations: [
@@ -24,7 +33,16 @@ import { AdminMenuComponent } from './component/admin-menu/admin-menu.component'
       UpcomingGamesBySportComponent,
       GameComponent,
       AdminComponent,
-      AdminMenuComponent
+      AdminMenuComponent,
+      AdminMainComponent,
+      AdminAddSportComponent,
+      AdminAddLeagueComponent,
+      AdminAddSeasonComponent,
+      AdminAddRoundComponent,
+      AdminAddTeamComponent,
+      AdminAddPeriodComponent,
+      AdminAddGoalComponent,
+      AdminAddArenaComponent
    ],
    imports: [
       BrowserModule,
