@@ -38,12 +38,10 @@ export class AdminAddSeasonComponent implements OnInit {
   getLeaguesBySportId(sportId) {
     this.leagueService.getLeaguesBySportId(sportId).subscribe(data => {
       this.leagues = data;
-      console.log(data);
     });
   }
 
   onSubmit() {
-    console.log(this.addSeasonForm.value);
     this.addSeasonForm.controls.roundLimit.reset();
     //this.addSeasonForm.controls.startDate.reset();
     //this.addSeasonForm.controls.endDate.reset();
@@ -54,7 +52,6 @@ export class AdminAddSeasonComponent implements OnInit {
   }
 
   sportChanged(sportId){
-    console.log(sportId);
     this.getLeaguesBySportId(sportId);
   }
 

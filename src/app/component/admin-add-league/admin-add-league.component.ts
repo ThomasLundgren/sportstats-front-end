@@ -30,7 +30,6 @@ export class AdminAddLeagueComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.addLeagueForm.value);
     this.addLeagueForm.controls.name.reset();
   }
 
