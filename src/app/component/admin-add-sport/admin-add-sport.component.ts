@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-add-sport',
@@ -7,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminAddSportComponent implements OnInit {
 
+  addSportForm = new FormGroup({
+    name: new FormControl(''),
+  });
+  
   constructor() {}
 
   ngOnInit() {
 
+  }
+
+  onSubmit() {
+    console.log(this.addSportForm.value);
+    this.addSportForm.reset();
   }
 
 }

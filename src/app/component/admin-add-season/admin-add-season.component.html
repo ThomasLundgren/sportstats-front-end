@@ -1,1 +1,21 @@
-<p>admin-add-season works!</p>
+<div class="container">
+    <h1 class="text-left">Add Season</h1>
+    <form [formGroup]="addSeasonForm" (ngSubmit)="onSubmit()">
+
+            <!--
+            startDate: Date;
+            endDate: Date;
+            leagueId: number;
+            roundLimit: number;
+            -->
+
+        <div class="form-group">
+            <label for="sport">Sport</label>
+            <select class="form-control" id="sport" required>
+                <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
+            </select>
+        </div>
+        <button type="reset" class="btn btn-warning btn-block">Reset</button>
+        <button type="submit" class="btn btn-success btn-block">Submit</button>
+    </form>
+</div>

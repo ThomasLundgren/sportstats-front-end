@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SportService } from 'src/app/service/sport.service';
 import { Sport } from 'src/app/model/sport.model';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-add-league',
@@ -10,10 +11,12 @@ import { Sport } from 'src/app/model/sport.model';
 export class AdminAddLeagueComponent implements OnInit {
 
   sports: Sport[] = [];
+  addLeagueForm = new FormGroup({
+    name: new FormControl(''),
+    sport: new FormControl(''),
+  });
 
-  constructor(private sportService: SportService) {
-    
-   }
+  constructor(private sportService: SportService) { }
 
   ngOnInit() {
     this.getSports();
@@ -22,7 +25,13 @@ export class AdminAddLeagueComponent implements OnInit {
   getSports(): void {
     this.sportService.getSports().subscribe(data => {
       this.sports = data;
+      this.addLeagueForm.reset();
     });
+  }
+
+  onSubmit() {
+    console.log(this.addLeagueForm.value);
+    this.addLeagueForm.controls.name.reset();
   }
 
 }
