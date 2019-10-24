@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeagueService } from 'src/app/service/league.service';
 import { League } from 'src/app/model/league.model';
 import { TableService } from 'src/app/service/table.service';
-import { Table } from 'src/app/model/table.model';
 import { SeasonService } from 'src/app/service/season.service';
+import { Season } from 'src/app/model/season.model';
 
 @Component({
   selector: 'app-league',
@@ -19,21 +19,27 @@ export class LeagueComponent implements OnInit {
     sportId: 0,
     seasons: []
   };
-  latestSeasonId = 1;
+  latestSeasonId = 0;
+  noSeasonVariable = -1;
 
   constructor(private route: ActivatedRoute, private leagueService: LeagueService, private tableService: TableService, private seasonServie: SeasonService) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.leagueService.getLeagueById(params.get('id')).subscribe(data => {
-        console.log(data);
-        this.league = data;
-        this.seasonServie.getSeasonsByLeagueId(this.league.id).subscribe(seasonsData => {
-          // removing debugger statement makes this code bug
-          this.league.seasons = seasonsData;
-          this.latestSeasonId = this.league.seasons.pop().id;
-        });
-      });
+    this.route.paramMap.subscribe(paramMap => {
+      this.getSeasonsByLeagueId(parseInt(paramMap.get('id')));
     });
+  }
+  getSeasonsByLeagueId(leagueId) {
+    this.seasonServie.getSeasonsByLeagueId(leagueId).subscribe(seasons => {
+      this.getSeasonIdBySeasons(seasons);
+    });
+  }
+  getSeasonIdBySeasons(seasons: Season[]) {
+    seasons = seasons.sort((a, b) => (a.startDate > b.startDate) ? 1 : ((b.startDate > a.startDate) ? -1 : 0));
+    if (seasons.length < 1)
+      this.latestSeasonId = this.noSeasonVariable;
+    else {
+      this.latestSeasonId = seasons[0].id;
+    }
   }
 }
