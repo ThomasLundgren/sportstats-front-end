@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +26,7 @@ import { AdminAddTeamComponent } from './component/admin-add-team/admin-add-team
 import { AdminAddPeriodComponent } from './component/admin-add-period/admin-add-period.component';
 import { AdminAddGoalComponent } from './component/admin-add-goal/admin-add-goal.component';
 import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-arena.component';
+import { ProgressComponent } from './component/progress/progress.component';
 
 @NgModule({
    declarations: [
@@ -45,7 +48,8 @@ import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-ar
       AdminAddTeamComponent,
       AdminAddPeriodComponent,
       AdminAddGoalComponent,
-      AdminAddArenaComponent
+      AdminAddArenaComponent,
+      ProgressComponent
    ],
    imports: [
       BrowserModule,
@@ -53,7 +57,9 @@ import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-ar
       HttpClientModule,
       FontAwesomeModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      MatProgressSpinnerModule,
+      BrowserAnimationsModule
    ],
    providers: [],
    bootstrap: [
