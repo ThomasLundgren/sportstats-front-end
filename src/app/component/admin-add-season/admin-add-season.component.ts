@@ -1,31 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { LeagueService } from 'src/app/service/league.service';
-import { Sport } from 'src/app/model/sport.model';
-import { SportService } from 'src/app/service/sport.service';
-import { League } from 'src/app/model/league.model';
+import { Component, OnInit } from "@angular/core";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+} from "@angular/forms";
+import { LeagueService } from "src/app/service/league.service";
+import { Sport } from "src/app/model/sport.model";
+import { SportService } from "src/app/service/sport.service";
+import { League } from "src/app/model/league.model";
+import { dateValidator } from "../../validator/validator";
 
 @Component({
-  selector: 'app-admin-add-season',
-  templateUrl: './admin-add-season.component.html',
-  styleUrls: ['./admin-add-season.component.scss']
+  selector: "app-admin-add-season",
+  templateUrl: "./admin-add-season.component.html",
+  styleUrls: ["./admin-add-season.component.scss"]
 })
 export class AdminAddSeasonComponent implements OnInit {
-
   sports: Sport[] = [];
   leagues: League[] = [];
 
-  addSeasonForm = new FormGroup({
-    leagueId: new FormControl(''),
-    roundLimit: new FormControl(''),
-    startDate: new FormControl(''),
-    endDate: new FormControl(''),
-  });
+  standardValidator = [Validators.required, Validators.minLength(2)];
+  numberValidator = [Validators.required, Validators.min(1), Validators.max(50)];
+  addSeasonForm: FormGroup;
 
-  constructor(private sportService: SportService, private leagueService: LeagueService) { }
+  constructor(
+    private sportService: SportService,
+    private leagueService: LeagueService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.getSports();
+    this.addSeasonForm = this.fb.group({
+      leagueId: ["", this.standardValidator],
+      roundLimit: ["", this.numberValidator],
+      startDate: ["", dateValidator],
+      endDate: ["", dateValidator]
+    });
+    this.addSeasonForm.controls.endDate.valueChanges.subscribe(change => {
+      this.addSeasonForm.controls.startDate.updateValueAndValidity();
+    });
+  }
+
+  control() {
+    return this.addSeasonForm.controls;
   }
 
   getSports(): void {
@@ -50,8 +68,7 @@ export class AdminAddSeasonComponent implements OnInit {
     this.leagues = [];
   }
 
-  sportChanged(sportId: number): void{
+  sportChanged(sportId: number): void {
     this.getLeaguesBySportId(sportId);
   }
-
 }

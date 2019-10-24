@@ -3,7 +3,8 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from "@angular/core";
 import { Season } from "../../model/season.model";
 import { SeasonService } from "../../service/season.service";
@@ -34,6 +35,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["sport"].currentValue.id !== 0) {
+      console.log(JSON.stringify(changes));
       this.sport = changes["sport"].currentValue;
       this.setLeagues();
     }
