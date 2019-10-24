@@ -18,7 +18,6 @@ import { dateValidator } from "../../validator/validator";
 export class AdminAddSeasonComponent implements OnInit {
   sports: Sport[] = [];
   leagues: League[] = [];
-
   standardValidator = [Validators.required, Validators.minLength(2)];
   numberValidator = [Validators.required, Validators.min(1), Validators.max(50)];
   addSeasonForm: FormGroup;
@@ -35,8 +34,9 @@ export class AdminAddSeasonComponent implements OnInit {
       leagueId: ["", this.standardValidator],
       roundLimit: ["", this.numberValidator],
       startDate: ["", dateValidator],
-      endDate: ["", dateValidator]
+      endDate: ["", { validators: [dateValidator], updateOn: 'blur' }]
     });
+
     this.addSeasonForm.controls.endDate.valueChanges.subscribe(change => {
       this.addSeasonForm.controls.startDate.updateValueAndValidity();
     });

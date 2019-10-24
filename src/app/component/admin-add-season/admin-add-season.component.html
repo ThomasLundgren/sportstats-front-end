@@ -4,7 +4,7 @@
 
         <div class="form-group">
             <label for="sport">Sport</label>
-            <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sport" required>
+            <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sport" >
                 <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
             </select>
 
@@ -13,18 +13,18 @@
 
             <ng-template #showLeagueDropDown>
                 <label for="league">League</label>
-                <select #selectLeague class="form-control" id="league" formControlName="leagueId" required>
+                <select #selectLeague class="form-control" id="league" formControlName="leagueId" >
                     <option *ngFor="let league of leagues" value={{league.id}}>{{league.name}}</option>
                 </select>
 
                 <label for="roundLimit">Number of rounds</label>
-                <input type="number" formControlName="roundLimit" name="roundLimit" class="form-control" required>
+                <input type="number" formControlName="roundLimit" name="roundLimit" class="form-control" >
                 <div *ngIf="control().roundLimit.hasError('min')" class="alert alert-danger">
                     Roundlimit must be between 1 and 50.
                 </div>
 
                 <label for="startDate">Start date</label>
-                <input type="date" formControlName="startDate" name="startDate" class="form-control" required>
+                <input type="date" formControlName="startDate" name="startDate" class="form-control" >
                 <div *ngIf="control().startDate.hasError('dateError')
                         && control().startDate.dirty
                         && control().endDate.dirty" class="alert alert-danger">
@@ -32,7 +32,7 @@
                 </div>
 
                 <label for="endDate">End date</label>
-                <input type="date" formControlName="endDate" name="endDate" class="form-control" required>
+                <input type="date" formControlName="endDate" name="endDate" class="form-control" >
 
             </ng-template>
 
