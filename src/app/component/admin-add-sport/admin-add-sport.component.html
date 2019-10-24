@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container-fluid">
     <h1 class="text-left">Add Sport</h1>
     <form [formGroup]="addSportForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" formControlName="name" class="form-control" id="name" required>
         </div>
-        <button type="reset" class="btn btn-warning btn-block">Reset</button>
-        <button type="submit" class="btn btn-success btn-block">Submit</button>
+        <button type="reset" class="btn btn-secondary btn-space-right">Reset</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

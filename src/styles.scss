@@ -1,10 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
+@media screen and (max-width: 991px) {
+  .btn {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    margin-right: 0px;
+  }
+}
+
+.btn-space-right {
+  margin-right: 5px;
 }
