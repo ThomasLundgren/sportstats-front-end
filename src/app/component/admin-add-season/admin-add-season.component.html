@@ -2,13 +2,6 @@
     <h1 class="text-left">Add Season</h1>
     <form [formGroup]="addSeasonForm" (ngSubmit)="onSubmit()">
 
-        <!--
-            startDate: Date;
-            endDate: Date;
-            leagueId: number;
-            roundLimit: number;
-            -->
-
         <div class="form-group">
             <label for="sport">Sport</label>
             <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sport" required>
@@ -35,10 +28,7 @@
                 <p class="text-danger text-left">There are currently no leagues for the selected sport.</p>
             </ng-template>
 
-
         </div>
-
-
 
         <button type="reset" (click)="onReset()" class="btn btn-warning btn-block">Reset</button>
         <button type="submit" class="btn btn-success btn-block">Submit</button>

@@ -18,7 +18,7 @@ export class AdminAddSportComponent implements OnInit {
 
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.addSportForm.reset();
   }
 

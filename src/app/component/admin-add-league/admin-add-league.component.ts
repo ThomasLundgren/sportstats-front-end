@@ -25,11 +25,10 @@ export class AdminAddLeagueComponent implements OnInit {
   getSports(): void {
     this.sportService.getSports().subscribe(data => {
       this.sports = data;
-      this.addLeagueForm.reset();
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.addLeagueForm.controls.name.reset();
   }
 
