@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,16 @@ import { UpcomingGamesBySportComponent } from './component/upcoming-games-by-spo
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminComponent } from './component/admin/admin.component';
 import { TableComponent } from './component/table/table.component';
+import { AdminMenuComponent } from './component/admin-menu/admin-menu.component';
+import { AdminMainComponent } from './component/admin-main/admin-main.component';
+import { AdminAddSportComponent } from './component/admin-add-sport/admin-add-sport.component';
+import { AdminAddLeagueComponent } from './component/admin-add-league/admin-add-league.component';
+import { AdminAddSeasonComponent } from './component/admin-add-season/admin-add-season.component';
+import { AdminAddRoundComponent } from './component/admin-add-round/admin-add-round.component';
+import { AdminAddTeamComponent } from './component/admin-add-team/admin-add-team.component';
+import { AdminAddPeriodComponent } from './component/admin-add-period/admin-add-period.component';
+import { AdminAddGoalComponent } from './component/admin-add-goal/admin-add-goal.component';
+import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-arena.component';
 
 @NgModule({
    declarations: [
@@ -24,13 +35,25 @@ import { TableComponent } from './component/table/table.component';
       UpcomingGamesBySportComponent,
       GameComponent,
       AdminComponent,
-      TableComponent
+      TableComponent,
+      AdminMenuComponent,
+      AdminMainComponent,
+      AdminAddSportComponent,
+      AdminAddLeagueComponent,
+      AdminAddSeasonComponent,
+      AdminAddRoundComponent,
+      AdminAddTeamComponent,
+      AdminAddPeriodComponent,
+      AdminAddGoalComponent,
+      AdminAddArenaComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      FontAwesomeModule
+      FontAwesomeModule,
+      FormsModule,
+      ReactiveFormsModule
    ],
    providers: [],
    bootstrap: [
