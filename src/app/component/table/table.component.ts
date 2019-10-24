@@ -28,7 +28,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
     },
     tableRows: []
   }
-  table: Table;
+  table: Table = null;
 
 
   constructor(private route: ActivatedRoute, private tableService: TableService) { }
@@ -60,7 +60,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    this.table = null;
+    this.table = this.tableDummy;
   }
 
   ngOnDestroy(): void {
