@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy
+} from "@angular/core";
 import { Season } from "../../model/season.model";
 import { SeasonService } from "../../service/season.service";
 import { Sport } from "src/app/model/sport.model";
@@ -6,7 +12,8 @@ import { LeagueService } from "src/app/service/league.service";
 import { League } from "src/app/model/league.model";
 import { GameService } from "src/app/service/game.service";
 import { Game } from "src/app/model/game.model";
-import { Subscription } from 'rxjs';
+import { Subscription } from "rxjs";
+import { TeamService } from "src/app/service/team.service";
 
 @Component({
   selector: "app-upcoming-games-by-sport",
@@ -21,7 +28,8 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy {
   constructor(
     private leagueService: LeagueService,
     private seasonService: SeasonService,
-    private gameService: GameService
+    private gameService: GameService,
+    private teamService: TeamService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -35,46 +43,71 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy {
     return this.upcomingGames;
   }
 
+  ngOnDestroy() {
+    this.subcriptions.forEach(sub => sub.unsubscribe);
+  }
+
   private setLeagues(): void {
-    this.subcriptions.push(this.leagueService.getLeaguesBySportId(this.sport.id).subscribe(leagues => {
+    let sub = this.leagueService.getLeaguesBySportId(this.sport.id).subscribe(leagues => {
       this.sport.leagues = leagues;
       leagues.forEach(league => this.setSeasonsForLeague(league));
       console.log("Leagues: " + JSON.stringify(this.sport.leagues));
-    }));
+    });
+    this.subcriptions.push(sub);
   }
 
   private setSeasonsForLeague(league: League): void {
-    this.subcriptions.push(this.seasonService.getSeasonsByLeagueId(league.id).subscribe(seasons => {
+    let sub = this.seasonService.getSeasonsByLeagueId(league.id).subscribe(seasons => {
       league.seasons = seasons;
       seasons.forEach(season => {
         this.setGames(season, league.name);
       });
-    }));
+    });
+    this.subcriptions.push(sub);
   }
 
   private setGames(season: Season, leagueName: string): void {
-    this.subcriptions.push(this.gameService.getGamesBySeasonId(season.id).subscribe(games => {
+    let sub = this.gameService.getGamesBySeasonId(season.id).subscribe(games => {
       games.forEach(game => {
-        if (new Date(game.gameDate) > new Date()) {
-          let found = this.upcomingGames.find(element => {
-            return element.leagueName === leagueName;
-          });
-          if (found) {
-            found.games.push(game);
-          } else {
-            let gameArr = [game];
-            this.upcomingGames.push({
-              leagueName: leagueName,
-              games: gameArr
-            });
-          }
-        }
+        this.addHomeTeam(game.homeTeamId, game.guestTeamId, game, leagueName);
       });
-    }));
+    });
+    this.subcriptions.push(sub);
   }
 
-  ngOnDestroy() {
-    this.subcriptions.forEach(sub => sub.unsubscribe);
+  private addHomeTeam(homeTeamId: number, awayTeamId: number, game: Game, leagueName: string) {
+    let sub = this.teamService.getTeamById(homeTeamId).subscribe(team => {
+      game = { ...game, ...{ homeTeam: team } };
+      this.addAwayTeam(awayTeamId, game, leagueName);
+    });
+    this.subcriptions.push(sub);
+  }
+
+  private addAwayTeam(awayTeamId: number, game: Game, leagueName) {
+    let sub = this.teamService.getTeamById(awayTeamId).subscribe(team => {
+      game = { ...game, ...{ awayTeam: team } };
+      this.addGame(game, leagueName);
+    });
+    this.subcriptions.push(sub);
+  }
+
+  private addGame(game: Game, leagueName: string) {
+    if (new Date(game.gameDate) > new Date()) {
+      let found = this.upcomingGames.find(element => {
+        return element.leagueName === leagueName;
+      });
+
+      if (found) {
+        found.games.push(game);
+      } else {
+        let gameArr = [game];
+        this.upcomingGames.push({
+          leagueName: leagueName,
+          games: gameArr
+        });
+      }
+    }
+    console.log(JSON.stringify(this.upcomingGames));
   }
 
 }
