@@ -107,7 +107,6 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy {
         });
       }
     }
-    console.log(JSON.stringify(this.upcomingGames));
   }
 
 }

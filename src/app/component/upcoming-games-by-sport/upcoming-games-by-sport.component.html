@@ -2,14 +2,9 @@
 <div class="container" *ngFor="let league of getUpcomingGames()">
   <h5>{{league.leagueName}}</h5>
   <table class="table" *ngFor="let game of league.games">
-    <thead>
-      <th scope="col">Date</th>
-      <th scope="col">Home team</th>
-      <th scope="col">Away team</th>
-    </thead>
     <tbody>
       <tr>
-        <th scope="row">{{game.gameDate}}</th>
+        <td>{{game.gameDate}}</td>
         <td>{{game.homeTeam.name}}</td>
         <td>{{game.awayTeam.name}}</td>
       </tr>
