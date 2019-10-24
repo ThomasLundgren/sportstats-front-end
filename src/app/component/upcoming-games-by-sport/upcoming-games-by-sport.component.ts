@@ -3,7 +3,8 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from "@angular/core";
 import { Season } from "../../model/season.model";
 import { SeasonService } from "../../service/season.service";
@@ -20,20 +21,27 @@ import { TeamService } from "src/app/service/team.service";
   templateUrl: "./upcoming-games-by-sport.component.html",
   styleUrls: ["./upcoming-games-by-sport.component.css"]
 })
-export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy {
+export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnInit {
+
   @Input() sport: Sport;
   private subcriptions: Subscription[] = [];
-  public upcomingGames = [];
+  public upcomingGames;
 
   constructor(
     private leagueService: LeagueService,
     private seasonService: SeasonService,
     private gameService: GameService,
     private teamService: TeamService
-  ) {}
+  ) { }
+
+  ngOnInit(): void {
+
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["sport"].currentValue.id !== 0) {
+    if (!changes["sport"].firstChange) {
+      this.upcomingGames = [];
+      this.getUpcomingGames();
       this.sport = changes["sport"].currentValue;
       this.setLeagues();
     }
@@ -45,13 +53,13 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy {
 
   ngOnDestroy() {
     this.subcriptions.forEach(sub => sub.unsubscribe);
+
   }
 
   private setLeagues(): void {
     let sub = this.leagueService.getLeaguesBySportId(this.sport.id).subscribe(leagues => {
       this.sport.leagues = leagues;
       leagues.forEach(league => this.setSeasonsForLeague(league));
-      console.log("Leagues: " + JSON.stringify(this.sport.leagues));
     });
     this.subcriptions.push(sub);
   }
