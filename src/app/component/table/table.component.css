@@ -4,3 +4,9 @@
         overflow: scroll;
     }
 }
+
+.image-container{
+    background-image: 'src\assets\images\score.jpg';
+    width:100%;
+    height:100%;
+}
