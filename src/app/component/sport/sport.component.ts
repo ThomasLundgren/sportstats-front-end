@@ -22,7 +22,10 @@ export class SportComponent implements OnInit {
       let sportId = parseInt(params.get("id"));
 
       this.sportService.getSports().subscribe(sports => {
-        this.sport = sports.filter(sport => sport.id === sportId).pop();
+        let filteredSports = sports.filter(sport => sport.id === sportId);
+        if (filteredSports.length !== 0) {
+          this.sport = filteredSports.pop();
+        }
       });
     });
   }

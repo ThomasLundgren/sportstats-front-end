@@ -29,7 +29,7 @@ export class LeagueComponent implements OnInit {
         console.log(data);
         this.league = data;
         this.seasonServie.getSeasonsByLeagueId(this.league.id).subscribe(seasonsData => {
-          debugger;
+          // removing debugger statement makes this code bug
           this.league.seasons = seasonsData;
           this.latestSeasonId = this.league.seasons.pop().id;
         });
