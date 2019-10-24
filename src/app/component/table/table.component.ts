@@ -18,11 +18,12 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   season: Season;
   subscriptions: Subscription[] = [];
+  static dateDummy: Date = new Date('December 17, 1995 03:24:00');
   tableDummy: Table = {
     season: {
       id: 0,
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: TableComponent.dateDummy,
+      endDate: TableComponent.dateDummy,
       leagueId: 0,
       roundLimit: 10
     },
@@ -30,7 +31,24 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
   table: Table;
 
+
   constructor(private route: ActivatedRoute, private tableService: TableService) { }
+
+  getSeasonDateToShow(date: Date, noDate: string) {
+    if (date === TableComponent.dateDummy)
+      return noDate;
+    else {
+      return date;
+    }
+  }
+
+  getSeasonStartDateToShow() {
+    return this.getSeasonDateToShow(this.table.season.startDate, 'No season avalible.');
+  }
+
+  getSeasonEndDateToShow() {
+    return this.getSeasonDateToShow(this.table.season.endDate, '');
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.seasonId === -1)
