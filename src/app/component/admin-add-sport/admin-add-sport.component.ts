@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { SportService } from 'src/app/service/sport.service';
+import { Sport } from 'src/app/model/sport.model';
 
 @Component({
   selector: 'app-admin-add-sport',
@@ -12,14 +14,21 @@ export class AdminAddSportComponent implements OnInit {
     name: new FormControl(''),
   });
   
-  constructor() {}
+  constructor(private sportService: SportService) {}
 
   ngOnInit() {
 
   }
 
   onSubmit(): void {
+    var sport = new Sport();
+    sport.name = this.addSportForm.controls.name.value;
+    this.addSport(sport);
     this.addSportForm.reset();
+  }
+
+  addSport(sport: Sport): void {
+    this.sportService.addSport(sport);
   }
 
 }
