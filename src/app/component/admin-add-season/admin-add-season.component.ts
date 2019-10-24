@@ -19,7 +19,7 @@ export class AdminAddSeasonComponent implements OnInit {
   sports: Sport[] = [];
   leagues: League[] = [];
   standardValidator = [Validators.required, Validators.minLength(2)];
-  numberValidator = [Validators.required, Validators.min(1), Validators.max(50)];
+  roundValidator = [Validators.required, Validators.min(1), Validators.max(50)];
   addSeasonForm: FormGroup;
 
   constructor(
@@ -32,7 +32,7 @@ export class AdminAddSeasonComponent implements OnInit {
     this.getSports();
     this.addSeasonForm = this.fb.group({
       leagueId: ["", this.standardValidator],
-      roundLimit: ["", this.numberValidator],
+      roundLimit: ["", this.roundValidator],
       startDate: ["", dateValidator],
       endDate: ["", { validators: [dateValidator], updateOn: 'blur' }]
     });
