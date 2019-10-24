@@ -1,3 +1,11 @@
-<p>
-  upcoming-games works!
-</p>
+<h1 class="text-center">Upcoming games</h1>
+<div class="container" *ngFor="let game of getUpcomingGames()">
+  <ul>
+    <li>
+      League: {{game.leagueName}}
+      <ul *ngFor="let games of game.games">
+        <li>{{games.homeTeamId}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>
