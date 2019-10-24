@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SportService } from 'src/app/service/sport.service';
 import { Sport } from 'src/app/model/sport.model';
 
@@ -8,16 +8,18 @@ import { Sport } from 'src/app/model/sport.model';
   templateUrl: './admin-add-sport.component.html',
   styleUrls: ['./admin-add-sport.component.scss']
 })
-export class AdminAddSportComponent implements OnInit {
+export class AdminAddSportComponent {
+
+  sportValidator = [Validators.required, Validators.minLength(2), Validators.maxLength(50)];
 
   addSportForm = new FormGroup({
-    name: new FormControl(''),
+    name: new FormControl('', this.sportValidator)
   });
   
   constructor(private sportService: SportService) {}
 
-  ngOnInit() {
-
+  name() {
+    return this.addSportForm.get('name');
   }
 
   onSubmit(): void {
