@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { TableService } from 'src/app/service/table.service';
 import { Table } from 'src/app/model/table.model';
 import { Season } from 'src/app/model/season.model';
-import { TableRow } from 'src/app/model/table-row.model';
 import { Subscription } from 'rxjs';
 
 
@@ -61,7 +60,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    this.table = this.tableDummy;
+    this.table = null;
   }
 
   ngOnDestroy(): void {
