@@ -40,11 +40,14 @@ export class AdminAddRoundComponent implements OnInit {
 
   getLeaguesBySportId(sportId: number): void {
     this.leagueService.getLeaguesBySportId(sportId).subscribe(data => {
-      this.leagues = data;
+      if (data.length > 0) {
+        this.leagues = data;
+        this.getSeasonByLeagueId(data[0].id);
+      }
     });
   }
 
-  getSeasonByLeagueId(leagueId: number): void{
+  getSeasonByLeagueId(leagueId: number): void {
     this.seasonService.getSeasonsByLeagueId(leagueId).subscribe(data => {
       this.seasons = data;
     })
@@ -63,14 +66,22 @@ export class AdminAddRoundComponent implements OnInit {
   }
 
   sportChanged(sportId: number): void {
-    this.getLeaguesBySportId(sportId);
     this.leagues = [];
     this.seasons = [];
+    this.getLeaguesBySportId(sportId);
   }
 
   leagueChanged(leagueId: number): void {
-    this.getSeasonByLeagueId(leagueId);
     this.seasons = [];
+    this.getSeasonByLeagueId(leagueId);
+  }
+
+  disableFormElement(element) {
+    element.disabled = true;
+  }
+
+  enableFormElement(element) {
+    element.disabled = false;
   }
 
 }

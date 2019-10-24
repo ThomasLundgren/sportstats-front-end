@@ -14,44 +14,32 @@
 
 
         <div class="form-group">
+
             <label for="sport">Sport</label>
             <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sport" required>
                 <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
             </select>
 
-            <div *ngIf="leagues && leagues.length > 0; then showLeagueDropDown else promptNoLeaguesForSelectedSport">
-            </div>
+            <label for="league">League</label>
+            <select #selectLeague (change)="leagueChanged(selectLeague.value)" class="form-control" id="league"
+                required>
+                <option *ngFor="let league of leagues" value={{league.id}}>{{league.name}}</option>
+            </select>
 
-            <ng-template #showLeagueDropDown>
-                <label for="league">League</label>
-                <select #selectLeague (change)="leagueChanged(selectLeague.value)" class="form-control" id="league"
-                    required>
-                    <option *ngFor="let league of leagues" value={{league.id}}>{{league.name}}</option>
-                </select>
+            <label for="season">Season</label>
+            <select #selectSeason class="form-control" id="season" required>
+                <option *ngFor="let season of seasons" value={{season.id}}>{{season.startDate}} - {{season.endDate}}
+                </option>
+            </select>
 
-                <div
-                    *ngIf="seasons && seasons.length > 0; then showSeasonDropDown else promptNoSeasonsForSelectedLigue">
-                </div>
+            <label for="startDate">Start date</label>
+            <input type="date" name="startDate" class="form-control" required>
+            <label for="endDate">End date</label>
+            <input type="date" name="endDate" class="form-control" required>
 
-                <ng-template #showSeasonDropDown>
-                    <label for="season">Season</label>
-                    <select #selectSeason class="form-control" id="season" required>
-                        <option *ngFor="let season of seasons" value={{season.id}}>{{season.startDate}} - {{season.endDate}}</option>
-                    </select>
-                </ng-template>
+            <label for="name">Round number</label>
+            <input type="number" class="form-control" id="name" required>
 
-                <ng-template #promptNoSeasonsForSelectedLigue>
-                    <p class="text-danger text-left">There are currently no seasons for the selected ligue.</p>
-                </ng-template>
-
-
-
-
-            </ng-template>
-
-            <ng-template #promptNoLeaguesForSelectedSport>
-                <p class="text-danger text-left">There are currently no leagues for the selected sport.</p>
-            </ng-template>
 
         </div>
 
