@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-add-period',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-add-period.component.scss']
 })
 export class AdminAddPeriodComponent implements OnInit {
+
+  addPeriodForm = new FormGroup({
+    name: new FormControl(''),
+  });
 
   constructor() { }
 
