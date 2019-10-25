@@ -4,7 +4,7 @@
 
         <div class="form-group">
             <label for="sport">Sport</label>
-            <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sport" >
+            <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sport">
                 <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
             </select>
 
@@ -25,12 +25,17 @@
 
                 <label for="startDate">Start date</label>
                 <input type="date" formControlName="startDate" name="startDate" class="form-control" required>
-                <div *ngIf="control().startDate.hasError('dateError')
-                        && control().startDate.dirty
-                        && control().endDate.dirty"
-                        class="alert alert-danger">
-                    Start date must come before end date.
+                <div *ngIf="control().startDate.invalid && control().startDate.dirty">
+                    <div *ngIf="control().startDate.errors.dateError && control().startDate.dirty
+                                            && control().endDate.dirty" class="alert alert-danger">
+                        Start date must come before end date.
+                    </div>
+                    <div *ngIf="control().startDate.errors.longAgo" class="alert alert-danger">
+                        Please input a date after 1800.
+                    </div>
+
                 </div>
+
 
                 <label for="endDate">End date</label>
                 <input type="date" formControlName="endDate" name="endDate" class="form-control" required>

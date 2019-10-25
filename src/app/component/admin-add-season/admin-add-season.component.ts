@@ -1,9 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { LeagueService } from "src/app/service/league.service";
 import { Sport } from "src/app/model/sport.model";
 import { SportService } from "src/app/service/sport.service";
@@ -26,15 +22,18 @@ export class AdminAddSeasonComponent implements OnInit {
     private sportService: SportService,
     private leagueService: LeagueService,
     private fb: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getSports();
     this.addSeasonForm = this.fb.group({
       leagueId: ["", this.standardValidator],
       roundLimit: ["", this.roundValidator],
-      startDate: ["", dateValidator],
-      endDate: ["", { validators: [dateValidator], updateOn: 'blur' }]
+      startDate: ["", [dateValidator, Validators.required]],
+      endDate: [
+        "",
+        { validators: [dateValidator, Validators.required], updateOn: "blur" }
+      ]
     });
 
     this.addSeasonForm.controls.endDate.valueChanges.subscribe(change => {
@@ -60,8 +59,6 @@ export class AdminAddSeasonComponent implements OnInit {
 
   onSubmit(): void {
     this.addSeasonForm.controls.roundLimit.reset();
-    //this.addSeasonForm.controls.startDate.reset();
-    //this.addSeasonForm.controls.endDate.reset();
   }
 
   onReset(): void {
