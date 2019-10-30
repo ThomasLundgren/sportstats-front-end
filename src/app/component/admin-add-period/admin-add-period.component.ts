@@ -6,13 +6,11 @@ import { Sport } from "src/app/model/sport.model";
 import { League } from "src/app/model/league.model";
 import { SeasonService } from "src/app/service/season.service";
 import { Season } from "src/app/model/season.model";
-import { Round } from "src/app/model/round.model";
 import { Game } from "src/app/model/game.model";
-import { RoundService } from "src/app/service/round.service";
 import { GameService } from "src/app/service/game.service";
 import { Subscription } from "rxjs";
 import { TeamService } from "src/app/service/team.service";
-import { Team } from "src/app/model/team.model";
+import { Period } from 'src/app/model/period.model';
 
 @Component({
   selector: "app-admin-add-period",
@@ -27,14 +25,14 @@ export class AdminAddPeriodComponent implements OnInit {
   seasons: Season[] = [];
   games: Game[] = [];
   gamesInfo: string[] = [];
+  overtime: boolean = false;
 
   addPeriodForm = new FormGroup({
     sportId: new FormControl(""),
     leagueId: new FormControl(""),
     seasonId: new FormControl(""),
     gameId: new FormControl(""),
-    overtime: new FormControl(""),
-    goals: new FormControl("")
+    overtime: new FormControl("")
   });
 
   constructor(
@@ -47,6 +45,14 @@ export class AdminAddPeriodComponent implements OnInit {
 
   ngOnInit() {
     this.getSports();
+  }
+
+  onSubmit(){
+    let period = new Period();
+    period.gameId = this.addPeriodForm.get("gameId").value;
+    period.overtime = this.overtime;
+    console.log(JSON.stringify(period));
+    this.gameService.addPeriod(period);
   }
 
   ngOnDestroy() {
@@ -119,5 +125,9 @@ export class AdminAddPeriodComponent implements OnInit {
         })
       );
     });
+  }
+
+  setOvertime(event) {
+    this.overtime = event.srcElement.checked;
   }
 }

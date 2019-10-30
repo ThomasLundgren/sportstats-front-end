@@ -24,7 +24,7 @@
                 </option>
             </select>
             <div class="form-check" style="margin-top: 10px; position: static;">
-                <input type="checkbox" class="form-check-input" id="overtime" style="position: static; margin-right: 5px;">
+                <input type="checkbox" class="form-check-input" id="overtime" (change)="setOvertime($event)" style="position: static; margin-right: 5px;">
                 <label class="form-check-label" for="overtime">Overtime</label>
             </div>
         </div>
