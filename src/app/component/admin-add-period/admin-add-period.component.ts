@@ -109,9 +109,7 @@ export class AdminAddPeriodComponent implements OnInit {
           e.gameInfo += data.name;
         }));
       }));
-
       
-
     });
 
     
