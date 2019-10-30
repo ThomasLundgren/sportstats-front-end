@@ -10,6 +10,7 @@ import { League } from "src/app/model/league.model";
 import { Season } from "src/app/model/season.model";
 import { Game } from "src/app/model/game.model";
 import { Period } from "src/app/model/period.model";
+import { TeamService } from 'src/app/service/team.service';
 
 @Component({
   selector: "app-admin-add-goal",
@@ -25,13 +26,15 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
   seasons: Season[] = [];
   games: Game[] = [];
   periods: Period[] = [];
+  pointsValidator = [Validators.required, Validators.min(1)];
 
   constructor(
     private fb: FormBuilder,
     private sportService: SportService,
     private leagueService: LeagueService,
     private seasonService: SeasonService,
-    private gameService: GameService
+    private gameService: GameService,
+    private teamService: TeamService
   ) {}
 
   ngOnInit() {
@@ -41,26 +44,39 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
       season: ["", [Validators.required]],
       game: ["", [Validators.required]],
       period: ["", Validators.required],
-      player: ["", [Validators.required]],
-      points: ["", [Validators.required]],
+      points: ["", this.pointsValidator],
       time: ["", [Validators.required]],
       penalty: [""]
     });
+    let sub = this.sportService.getSports().subscribe(sports => (this.sports = sports));
+    this.subscriptions.add(sub);
+  }
+
+  points() {
+    return this.goalForm.get("points");
+  }
+
+  time() {
+    return this.goalForm.get("time");
   }
 
   sportChanged(sportId: number) {
-    this.leagues = [];
     this.getLeaguesBySportId(sportId);
   }
 
   leagueChanged(leagueId: number) {
-    this.seasons = [];
     this.getSeasonsByLeagueId(leagueId);
   }
 
   seasonChanged(seasonId: number) {
-    this.games = [];
     this.getGamesBySeasonId(seasonId);
+  }
+
+  gameChanged(gameId: number) {
+    let found = this.games.find(game => game.id == gameId);
+    if (found) {
+      this.periods = found.periods;
+    }
   }
 
   getLeaguesBySportId(sportId: number) {
@@ -80,8 +96,28 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
   getGamesBySeasonId(seasonId: number) {
     let sub = this.gameService
       .getGamesBySeasonId(seasonId)
-      .subscribe(games => (this.games = games));
+      .subscribe(games => {
+        this.games = games;
+        this.setGameInfo();
+      });
     this.subscriptions.add(sub);
+  }
+
+  setGameInfo(): void {
+    this.games.forEach(e => {
+      e.gameInfo = "";
+
+      this.subscriptions.add(
+        this.teamService.getTeamById(e.homeTeamId).subscribe(data => {
+          e.gameInfo += data.name + " - ";
+          this.subscriptions.add(
+            this.teamService.getTeamById(e.guestTeamId).subscribe(data => {
+              e.gameInfo += data.name;
+            })
+          );
+        })
+      );
+    });
   }
 
   ngOnDestroy() {
