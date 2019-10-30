@@ -18,6 +18,8 @@ import { AdminAddTeamComponent } from './component/admin-add-team/admin-add-team
 import { AdminAddPeriodComponent } from './component/admin-add-period/admin-add-period.component';
 import { AdminAddGoalComponent } from './component/admin-add-goal/admin-add-goal.component';
 import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-arena.component';
+import { AdminEditConnectTeamToSeasonComponent } from './component/admin-edit-connect-team-to-season/admin-edit-connect-team-to-season.component';
+import { AdminEditSetTeamPointsForGameComponent } from './component/admin-edit-set-team-points-for-game/admin-edit-set-team-points-for-game.component';
 
 
 const routes: Routes = [
@@ -78,6 +80,14 @@ const routes: Routes = [
       {
         path: "addarena",
         component: AdminAddArenaComponent
+      },
+      {
+        path: "connectteamtoseason",
+        component: AdminEditConnectTeamToSeasonComponent
+      },
+      {
+        path: "setteampointsforgame",
+        component: AdminEditSetTeamPointsForGameComponent
       }
     ]
   }
