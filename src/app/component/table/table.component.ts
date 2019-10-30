@@ -20,7 +20,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   static dateDummy: Date = new Date('December 17, 1995 03:24:00');
   tableDummy: Table = {
     season: {
-      id: 0,
+      id: -1,
       startDate: TableComponent.dateDummy,
       endDate: TableComponent.dateDummy,
       leagueId: 0,
@@ -31,7 +31,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   table: Table = null;
 
 
-  constructor(private route: ActivatedRoute, private tableService: TableService) { }
+  constructor(private route: ActivatedRoute, private tableService: TableService) {  }
 
   getSeasonDateToShow(date: Date, noDate: string) {
     if (date === TableComponent.dateDummy)
@@ -50,20 +50,23 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.seasonId === -1)
+    if (this.seasonId === -1){
+      this.unsubscribeFromSubscriptions();
       this.table = this.tableDummy;
-    else {
+    }else {
       this.subscriptions.push(this.tableService.getTableBySeasonId(this.seasonId).subscribe(data => {
         this.table = data;
       }));
     }
   }
 
-  ngOnInit() {
-    this.table = this.tableDummy;
-  }
+  ngOnInit() {  }
 
   ngOnDestroy(): void {
+    this.unsubscribeFromSubscriptions();
+  }
+
+  unsubscribeFromSubscriptions(): void {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
