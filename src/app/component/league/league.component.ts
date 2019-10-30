@@ -26,11 +26,13 @@ export class LeagueComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
-      this.getSeasonsByLeagueId(parseInt(paramMap.get('id')));
+      this.league.id = parseInt(paramMap.get('id'));
+      this.getSeasonsByLeagueId(this.league.id);
     });
   }
   getSeasonsByLeagueId(leagueId) {
     this.seasonServie.getSeasonsByLeagueId(leagueId).subscribe(seasons => {
+      this.league.seasons = seasons;
       this.getSeasonIdBySeasons(seasons);
     });
   }
@@ -39,7 +41,10 @@ export class LeagueComponent implements OnInit {
     if (seasons.length < 1)
       this.latestSeasonId = this.noSeasonVariable;
     else {
-      this.latestSeasonId = seasons[0].id;
+      this.latestSeasonId = seasons[seasons.length - 1].id;
     }
+  }
+  changeShowingSeason(id){
+    this.latestSeasonId = id;
   }
 }
