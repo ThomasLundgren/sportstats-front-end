@@ -10,6 +10,6 @@ export class TeamService {
   constructor(private http: HttpClient) { }
 
   getTeamById(teamId: number) {
-    return this.http.get<Team>('/api/team/' + teamId)
+    return this.http.get<Team>('/api/team/' + teamId);
   }
 }
