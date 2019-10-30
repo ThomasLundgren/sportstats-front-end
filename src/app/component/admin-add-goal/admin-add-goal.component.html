@@ -29,9 +29,8 @@
         </option>
       </select>
 
-      <label for="period">Period</label>
-      <select #selectPeriod class="form-control" id="period" formControlName="period"
-        required>
+      <label for="period">Period ID</label>
+      <select #selectPeriod class="form-control" id="period" formControlName="period" required>
         <option *ngFor="let period of periods" value={{period.id}}>{{ period.id }}
         </option>
       </select>
@@ -48,13 +47,13 @@
       </div>
 
       <label for="time">Time</label>
-      <input type="time" formControlName="time" class="form-control" required>
+      <input type="number" formControlName="time" class="form-control" required>
       <div *ngIf="time().errors && time().touched" class="alert alert-danger">
         Time is required.
       </div>
 
       <div class="form-check" style="margin-top: 10px;">
-        <input type="checkbox" class="form-check-input" id="overtime">
+        <input type="checkbox" class="form-check-input" id="overtime" (change)="setPenalty($event)">
         <label class="form-check-label" for="overtime">Penalty</label>
       </div>
 

@@ -11,6 +11,8 @@ import { Season } from "src/app/model/season.model";
 import { Game } from "src/app/model/game.model";
 import { Period } from "src/app/model/period.model";
 import { TeamService } from 'src/app/service/team.service';
+import { GoalService } from 'src/app/service/goal.service';
+import { Goal } from 'src/app/model/goal.model';
 
 @Component({
   selector: "app-admin-add-goal",
@@ -27,6 +29,7 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
   games: Game[] = [];
   periods: Period[] = [];
   pointsValidator = [Validators.required, Validators.min(1)];
+  penalty: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +37,8 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
     private leagueService: LeagueService,
     private seasonService: SeasonService,
     private gameService: GameService,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private goalService: GoalService
   ) {}
 
   ngOnInit() {
@@ -53,7 +57,17 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    let goal = new Goal();
+    goal.penalty = this.penalty;
     
+    goal.periodId = this.goalForm.get("period").value;
+    goal.playerId = 1;
+    goal.points = this.points().value;
+    goal.teamId = 1;
+    goal.goalTime = this.time().value;
+    console.log(JSON.stringify(goal));
+    
+    this.goalService.addGoal(goal);
   }
 
   onReset() {
@@ -73,7 +87,16 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
     return this.goalForm.get("time");
   }
 
+  league() {
+    return this.goalForm.get('league');
+  }
+
+  getLeagues() {
+    return this.leagues;
+  }
+
   sportChanged(sportId: number) {
+    this.league().updateValueAndValidity();  
     this.getLeaguesBySportId(sportId);
   }
 
@@ -83,6 +106,10 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
 
   seasonChanged(seasonId: number) {
     this.getGamesBySeasonId(seasonId);
+  }
+
+  setPenalty(event) {
+    this.penalty = event.srcElement.checked;
   }
 
   gameChanged(gameId: number) {
