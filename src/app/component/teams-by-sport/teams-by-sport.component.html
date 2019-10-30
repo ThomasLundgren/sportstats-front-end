@@ -1,0 +1,8 @@
+<div *ngIf="!((teams == null) || (teams.length == 0)); else noTeams">
+    <h3>Teams</h3>
+    <div>
+        <ul class="list-group">
+            <button class="list-group-item list-group-item-action team-list" *ngFor="let team of teams">{{team.name}}</button>
+        </ul>
+    </div>
+</div>

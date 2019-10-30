@@ -27,6 +27,8 @@ import { AdminAddPeriodComponent } from './component/admin-add-period/admin-add-
 import { AdminAddGoalComponent } from './component/admin-add-goal/admin-add-goal.component';
 import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-arena.component';
 import { ProgressComponent } from './component/progress/progress.component';
+import { TeamsBySportComponent } from './component/teams-by-sport/teams-by-sport.component';
+import { UpcomingGamesByTeamComponent } from './upcoming-games-by-team/upcoming-games-by-team.component';
 
 @NgModule({
    declarations: [
@@ -49,7 +51,9 @@ import { ProgressComponent } from './component/progress/progress.component';
       AdminAddPeriodComponent,
       AdminAddGoalComponent,
       AdminAddArenaComponent,
-      ProgressComponent
+      ProgressComponent,
+      TeamsBySportComponent,
+      UpcomingGamesByTeamComponent
    ],
    imports: [
       BrowserModule,

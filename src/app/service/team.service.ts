@@ -12,4 +12,7 @@ export class TeamService {
   getTeamById(teamId: number) {
     return this.http.get<Team>('/api/team/' + teamId)
   }
+  getTeamsBySportId(sportId: number){
+    return this.http.get<Team[]>('/api/team/sport/' + sportId);
+  }
 }

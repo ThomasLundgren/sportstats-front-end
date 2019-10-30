@@ -31,7 +31,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   table: Table = null;
 
 
-  constructor(private route: ActivatedRoute, private tableService: TableService) {  }
+  constructor(private tableService: TableService) {  }
 
   getSeasonDateToShow(date: Date, noDate: string) {
     if (date === TableComponent.dateDummy)
