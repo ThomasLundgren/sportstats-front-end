@@ -23,12 +23,12 @@
                 <option *ngFor="let game of games" value={{game.id}}>{{ game.gameInfo }}
                 </option>
             </select>
-            <div class="form-check" style="margin-top: 10px;">
-                <input type="checkbox" class="form-check-input" id="overtime">
+            <div class="form-check" style="margin-top: 10px; position: static;">
+                <input type="checkbox" class="form-check-input" id="overtime" style="position: static; margin-right: 5px;">
                 <label class="form-check-label" for="overtime">Overtime</label>
             </div>
         </div>
         <button type="reset" class="btn btn-secondary btn-space-right">Reset</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button [disabled]="addPeriodForm.invalid" type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
