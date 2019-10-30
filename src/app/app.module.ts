@@ -55,7 +55,7 @@ import { AdminEditSetTeamPointsForGameComponent } from './component/admin-edit-s
       AdminAddArenaComponent,
       ProgressComponent,
       TeamsBySportComponent,
-      UpcomingGamesByTeamComponent
+      UpcomingGamesByTeamComponent,
       AdminEditConnectTeamToSeasonComponent,
       AdminEditSetTeamPointsForGameComponent
    ],
