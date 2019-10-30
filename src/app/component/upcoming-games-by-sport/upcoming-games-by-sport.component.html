@@ -25,11 +25,14 @@
         </tbody>
       </table>
     </div>
-
   </ng-template>
 
   <ng-template #promptNoGamesForSelectedSport>
-    <app-progress></app-progress>
+    <div *ngIf="!isLoading; else loadingScreen">
+        <h3>No upcoming games at this sport yet...</h3>
+    </div>
+    <ng-template #loadingScreen>
+        <app-progress></app-progress>
+    </ng-template>
   </ng-template>
-
 </div>

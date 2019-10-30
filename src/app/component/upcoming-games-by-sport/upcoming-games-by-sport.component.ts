@@ -26,6 +26,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
   @Input() sport: Sport;
   private subcriptions: Subscription[] = [];
   public upcomingGames;
+  public isLoading = true;
 
   constructor(
     private leagueService: LeagueService,
@@ -40,6 +41,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes["sport"].firstChange) {
+      this.isLoading = true;
       this.upcomingGames = [];
       this.getUpcomingGames();
       this.sport = changes["sport"].currentValue;
@@ -59,6 +61,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
   private setLeagues(): void {
     let sub = this.leagueService.getLeaguesBySportId(this.sport.id).subscribe(leagues => {
       this.sport.leagues = leagues;
+      if(leagues.length == 0){ this.isLoading = false;}
       leagues.forEach(league => this.setSeasonsForLeague(league));
     });
     this.subcriptions.push(sub);
@@ -95,6 +98,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
     let sub = this.teamService.getTeamById(awayTeamId).subscribe(team => {
       game = { ...game, ...{ awayTeam: team } };
       this.addGame(game, leagueName);
+      this.isLoading = false;
     });
     this.subcriptions.push(sub);
   }
