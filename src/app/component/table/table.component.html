@@ -1,6 +1,6 @@
 <div id="tabel" class="container-fluid">
   <div *ngIf="!(table == null); else loading">
-    <div *ngIf="!((table === tableDummy) || (table?.tablerows?.items?.length > 0)); else noTable" class="border">
+    <div *ngIf="!(table === tableDummy); else noTable" class="border">
       <h3 class="center-headline">Season: {{getSeasonStartDateToShow()}} - {{getSeasonEndDateToShow()}}</h3>
       <table class="table table-striped">
         <thead class="thead-light ">
