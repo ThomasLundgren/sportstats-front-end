@@ -11,6 +11,8 @@ import { Game } from 'src/app/model/game.model';
 import { RoundService } from 'src/app/service/round.service';
 import { GameService } from 'src/app/service/game.service';
 import { Subscription } from 'rxjs';
+import { TeamService } from 'src/app/service/team.service';
+import { Team } from 'src/app/model/team.model';
 
 @Component({
   selector: 'app-admin-add-period',
@@ -25,6 +27,7 @@ export class AdminAddPeriodComponent implements OnInit {
   leagues: League[] = [];
   seasons: Season[] = [];
   games: Game[] = [];
+  gamesInfo: string[] = [];
 
   addPeriodForm = new FormGroup({
     sportId: new FormControl(''),
@@ -39,7 +42,8 @@ export class AdminAddPeriodComponent implements OnInit {
     private sportService: SportService,
     private leagueService: LeagueService,
     private seasonService: SeasonService,
-    private gameService: GameService
+    private gameService: GameService,
+    private teamService: TeamService,
     ) { }
 
   ngOnInit() {
@@ -71,6 +75,7 @@ export class AdminAddPeriodComponent implements OnInit {
   getGamesBySeasonId(seasonId: number): void{
     this.subscriptions.add(this.gameService.getGamesBySeasonId(seasonId).subscribe(data => {
       this.games = data;
+      this.setGameInfo();
     }));
   }
 
@@ -90,6 +95,24 @@ export class AdminAddPeriodComponent implements OnInit {
 
   seasonChanged(seasonId: number): void{
     this.getGamesBySeasonId(seasonId);
+  }
+
+  setGameInfo(): void{
+
+    this.games.forEach(e => {
+
+      e.gameInfo = "";
+
+      this.subscriptions.add(this.teamService.getTeamById(e.homeTeamId).subscribe(data => {
+        e.gameInfo += data.name + " - ";
+        this.subscriptions.add(this.teamService.getTeamById(e.guestTeamId).subscribe(data => {
+          e.gameInfo += data.name;
+        }));
+      }));
+      
+    });
+
+    
   }
 
 }

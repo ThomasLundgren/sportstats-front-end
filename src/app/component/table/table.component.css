@@ -4,73 +4,21 @@
         overflow: scroll;
     }
 }
-.image-box {
+.info-box {
     position: relative;
   }
-  
-  
-  .image-box__background,
-  .image-box__overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-  /* 
-  The background image div sizes and positions the background itself.
-  It's also at the bottom-most position in our "div stack" (z-index 1)
-  
-  We set the image url via a CSS custom property, that's set via the style attribute in our HTML
-  */
-  .image-box__background {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-image: var(--image-url);
-  
-    z-index: 1
-  }
-  
-  /* 
-  The overlay div is just a colored element with some opacity.
-  It's above the background image in our stack, so it appears to 
-  darken the image 
-  */
-  .image-box__overlay {
-    z-index: 2;
-  }
-  
-  /* 
-  The content div is at the top of our stack. 
-  We'd probably add some padding or flexbox properties here as well, 
-  to place the content appropriately
-  */
-  .image-box__content {
+
+  .info-box__content {
     position: relative;
   
-    z-index: 3;
-    color: white;
-    min-height: 100vh;
     display: flex;
-    align-items: center;
+    top: 2pt;
     justify-content: center;
   }
-  .image-box__content h1{
-    padding: 10px;
-    padding-bottom: 15px;
-    background-color: rgba(0, 0, 0, 0.5);
+  .info-box__content h1{
+    color: rgba(0, 0, 0, 0.5);
   }
-  /* just for the demo */
-  html, body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-  }
+
   h1 {
     font-size: 30px;
   }
-
-.center-headline{
-    text-align: center;
-}

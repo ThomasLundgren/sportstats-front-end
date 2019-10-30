@@ -1,3 +1,16 @@
 <div class="backround-container">
-    <app-table [seasonId]=latestSeasonId></app-table>
+    <div class="item-container">
+        <div *ngIf="league.seasons.length > 0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="dropdown" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Choose season</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown">
+                    <button (click) ="changeShowingSeason(season.id)" class="dropdown-item" 
+                    *ngFor="let season of league.seasons">{{season.startDate}} - {{season.endDate}}</button>
+                </div>
+            </li>
+        </div>
+        <app-table [seasonId]=latestSeasonId></app-table>
+    </div>
 </div>
+      <!--*ngFor="let season of league.seasons"-->

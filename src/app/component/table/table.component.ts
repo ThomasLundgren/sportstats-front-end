@@ -68,5 +68,6 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   unsubscribeFromSubscriptions(): void {
     this.subscriptions.unsubscribe();
+    this.subscriptions = new Subscription();
   }
 }
