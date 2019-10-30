@@ -1,1 +1,37 @@
-<p>admin-add-period works!</p>
+<!-- 
+    id: number;
+    gameId: number;
+    overtime: boolean;
+    goals: Goal[];
+-->
+
+<div class="container">
+    <h1 class="text-left">Add Period</h1>
+    <form [formGroup]="addPeriodForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="sport">Sport</label>
+            <select #selectSport class="form-control" id="sport" formControlName="sportId"
+                (change)="sportChanged(selectSport.value)" required>
+                <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
+            </select>
+            <label for="league">League</label>
+            <select #selectLeague class="form-control" id="league" formControlName="leagueId"
+                (change)="leagueChanged(selectLeague.value)" required>
+                <option *ngFor="let league of leagues" value={{league.id}}>{{league.name}}</option>
+            </select>
+            <label for="season">Season</label>
+            <select #selectSeason class="form-control" id="season" formControlName="seasonId"
+                (change)="seasonChanged(selectSeason.value)" required>
+                <option *ngFor="let season of seasons" value={{season.id}}>{{season.startDate}} - {{season.endDate}}
+                </option>
+            </select>
+            <label for="game">Game</label>
+            <select #selectGame class="form-control" id="game" formControlName="gameId" required>
+                <option *ngFor="let game of games" value={{game.id}}>{{game.id}}
+                </option>
+            </select>
+        </div>
+        <button type="reset" class="btn btn-secondary btn-space-right">Reset</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

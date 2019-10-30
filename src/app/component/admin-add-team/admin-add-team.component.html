@@ -1,1 +1,11 @@
-<p>admin-add-team works!</p>
+<div class="container">
+    <h1 class="text-left">Add Team</h1>
+    <form [formGroup]="addTeamForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required>
+        </div>
+        <button type="reset" class="btn btn-secondary btn-space-right">Reset</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
