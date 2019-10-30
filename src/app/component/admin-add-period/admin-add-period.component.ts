@@ -8,6 +8,9 @@ import { SeasonService } from 'src/app/service/season.service';
 import { Season } from 'src/app/model/season.model';
 import { Round } from 'src/app/model/round.model';
 import { Game } from 'src/app/model/game.model';
+import { RoundService } from 'src/app/service/round.service';
+import { GameService } from 'src/app/service/game.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-add-period',
@@ -16,17 +19,17 @@ import { Game } from 'src/app/model/game.model';
 })
 export class AdminAddPeriodComponent implements OnInit {
 
+  subscriptions: Subscription = new Subscription();
+
   sports: Sport[] = [];
   leagues: League[] = [];
   seasons: Season[] = [];
-  rounds: Round[] = [];
   games: Game[] = [];
 
   addPeriodForm = new FormGroup({
     sportId: new FormControl(''),
     leagueId: new FormControl(''),
     seasonId: new FormControl(''),
-    roundId: new FormControl(''),
     gameId: new FormControl(''),
     overtime: new FormControl(''),
     goals: new FormControl(''),
@@ -36,38 +39,45 @@ export class AdminAddPeriodComponent implements OnInit {
     private sportService: SportService,
     private leagueService: LeagueService,
     private seasonService: SeasonService,
-    //private roundService: RoundService
+    private gameService: GameService
     ) { }
 
   ngOnInit() {
     this.getSports();
   }
 
+  ngOnDestroy(){
+    this.subscriptions.unsubscribe();
+  }
+
   getSports(): void {
-    this.sportService.getSports().subscribe(data => {
+    this.subscriptions.add(this.sportService.getSports().subscribe(data => {
       this.sports = data;
-    });
+    }));
   }
 
   getLeaguesBySportId(sportId: number): void {
-    this.leagueService.getLeaguesBySportId(sportId).subscribe(data => {
+    this.subscriptions.add(this.leagueService.getLeaguesBySportId(sportId).subscribe(data => {
       this.leagues = data;
-    });
+    }));
   }
 
   getSeasonsByLeagueId(leagueId: number): void {
-    this.seasonService.getSeasonsByLeagueId(leagueId).subscribe(data => {
+    this.subscriptions.add(this.seasonService.getSeasonsByLeagueId(leagueId).subscribe(data => {
       this.seasons = data;
-    });
+    }));
   }
 
-  getRoundsBySeasonId(seasonId: number): void{
-
+  getGamesBySeasonId(seasonId: number): void{
+    this.subscriptions.add(this.gameService.getGamesBySeasonId(seasonId).subscribe(data => {
+      this.games = data;
+    }));
   }
 
   onReset(): void {
     this.leagues = [];
     this.seasons = [];
+    this.games = [];
   }
 
   sportChanged(sportId: number): void{
@@ -79,7 +89,7 @@ export class AdminAddPeriodComponent implements OnInit {
   }
 
   seasonChanged(seasonId: number): void{
-    this.getRoundsBySeasonId(seasonId);
+    this.getGamesBySeasonId(seasonId);
   }
 
 }

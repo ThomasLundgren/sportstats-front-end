@@ -25,10 +25,9 @@
                 <option *ngFor="let season of seasons" value={{season.id}}>{{season.startDate}} - {{season.endDate}}
                 </option>
             </select>
-            <label for="season">Round</label>
-            <select #selectRound class="form-control" id="round" formControlName="roundId" required>
-                <option *ngFor="let round of rounds" value={{round.id}}>Round number: {{round.roundNumber}}
-                    {{round.startDate}} - {{round.endDate}}
+            <label for="game">Game</label>
+            <select #selectGame class="form-control" id="game" formControlName="gameId" required>
+                <option *ngFor="let game of games" value={{game.id}}>{{game.id}}
                 </option>
             </select>
         </div>
