@@ -9,11 +9,27 @@
     <h1 class="text-left">Add Period</h1>
     <form [formGroup]="addPeriodForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" required>
             <label for="sport">Sport</label>
-            <select class="form-control" id="sport" required>
+            <select #selectSport class="form-control" id="sport" formControlName="sportId"
+                (change)="sportChanged(selectSport.value)" required>
                 <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
+            </select>
+            <label for="league">League</label>
+            <select #selectLeague class="form-control" id="league" formControlName="leagueId"
+                (change)="leagueChanged(selectLeague.value)" required>
+                <option *ngFor="let league of leagues" value={{league.id}}>{{league.name}}</option>
+            </select>
+            <label for="season">Season</label>
+            <select #selectSeason class="form-control" id="season" formControlName="seasonId"
+                (change)="seasonChanged(selectSeason.value)" required>
+                <option *ngFor="let season of seasons" value={{season.id}}>{{season.startDate}} - {{season.endDate}}
+                </option>
+            </select>
+            <label for="season">Round</label>
+            <select #selectRound class="form-control" id="round" formControlName="roundId" required>
+                <option *ngFor="let round of rounds" value={{round.id}}>Round number: {{round.roundNumber}}
+                    {{round.startDate}} - {{round.endDate}}
+                </option>
             </select>
         </div>
         <button type="reset" class="btn btn-secondary btn-space-right">Reset</button>
