@@ -8,6 +8,9 @@ export function dateValidator(
     const end = control.root.get("endDate").value;
     const startDate = new Date(start);
     const endDate = new Date(end);
+    if (startDate < new Date(1800, 1, 1)) {
+      return { longAgo: true }
+    }
     if (startDate < endDate) {
       return null;
     } else {

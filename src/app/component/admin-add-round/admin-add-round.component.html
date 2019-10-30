@@ -1,49 +1,80 @@
 <div class="container">
-    <h1 class="text-left">Add Round</h1>
-    <form [formGroup]="addRoundForm" (ngSubmit)="onSubmit()">
+  <h1 class="text-left">Add Round</h1>
+  <form [formGroup]="addRoundForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
 
+      <label for="sport">Sport</label>
+      <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sports"
+        formControlName="sports" required>
+        <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
+      </select>
 
+      <div *ngIf="leagues && leagues.length > 0; then showLeagueDropDown else promptNoLeaguesForSelectedSport">
+      </div>
 
-        <!--id: number;
-            seasonId: number;
-            startDate: Date;
-            endDate: Date;
-            leagueId: number;
-            roundNumber: number;
-                                -->
+      <ng-template #showLeagueDropDown>
+        <label for="league">League</label>
+        <select #selectLeague (change)="leagueChanged(selectLeague.value)" class="form-control" id="leagues"
+          formControlName="leagues" required>
+          <option *ngFor="let league of leagues" value={{league.id}}>{{league.name}}</option>
+        </select>
 
-
-        <div class="form-group">
-
-            <label for="sport">Sport</label>
-            <select #selectSport (change)="sportChanged(selectSport.value)" class="form-control" id="sport" required>
-                <option *ngFor="let sport of sports" value={{sport.id}}>{{sport.name}}</option>
-            </select>
-
-            <label for="league">League</label>
-            <select #selectLeague (change)="leagueChanged(selectLeague.value)" class="form-control" id="league"
-                required>
-                <option *ngFor="let league of leagues" value={{league.id}}>{{league.name}}</option>
-            </select>
-
-            <label for="season">Season</label>
-            <select #selectSeason class="form-control" id="season" required>
-                <option *ngFor="let season of seasons" value={{season.id}}>{{season.startDate}} - {{season.endDate}}
-                </option>
-            </select>
-
-            <label for="startDate">Start date</label>
-            <input type="date" name="startDate" class="form-control" required>
-            <label for="endDate">End date</label>
-            <input type="date" name="endDate" class="form-control" required>
-
-            <label for="name">Round number</label>
-            <input type="number" class="form-control" id="name" required>
-
-
+        <div *ngIf="seasons && seasons.length > 0; then showSeasonDropDown else promptNoSeasonsForSelectedLeague">
         </div>
+        <ng-template #showSeasonDropDown>
+          <label for="season">Season</label>
+          <select #selectSeasons class="form-control" id="seasons" formControlName="seasons" required>
+            <option *ngFor="let season of seasons" value={{season.id}}>{{season.startDate}} - {{season.endDate}}
+            </option>
+          </select>
+          <div *ngIf="seasonAttr().errors?.required && seasonAttr().touched" class="alert alert-danger">
+            Season is required.
+          </div>
 
-        <button type="reset" class="btn btn-secondary btn-space-right">Reset</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+          <label for="roundNumber">Round number</label>
+          <input type="number" formControlName="roundNumber" class="form-control" required>
+          <div *ngIf="roundNumber().errors && roundNumber().touched">
+            <div *ngIf="roundNumber().errors?.required && roundNumber()" class="alert alert-danger">
+              Round number is required.
+            </div>
+            <div *ngIf="roundNumber().errors?.min" class="alert alert-danger">
+              Round number must be greater than 1.
+            </div>
+          </div>
+
+          <label for="startDate">Start date</label>
+          <input type="date" formControlName="startDate" class="form-control" required>
+          <div *ngIf="startDate().invalid && startDate().dirty">
+            <div *ngIf="startDate().errors.dateError && startDate().dirty
+            && endDate().dirty" class="alert alert-danger">
+              Start date must come before end date.
+            </div>
+            <div *ngIf="startDate().errors.longAgo" class="alert alert-danger">
+              Please input a date after 1800.
+            </div>
+          </div>
+
+          <label for="endDate">End date</label>
+          <input type="date" formControlName="endDate" name="endDate" class="form-control" required>
+          <div *ngIf="endDate().invalid && endDate.dirty">
+            <div *ngIf="endDate().errors.longAgo" class="alert alert-danger">
+              Please input a date after 1800.
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #promptNoSeasonsForSelectedLeague>
+          <p class="text-danger text-left">There are currently no seasons for the selected league.</p>
+        </ng-template>
+
+      </ng-template>
+
+      <ng-template #promptNoLeaguesForSelectedSport>
+        <p class="text-danger text-left">There are currently no leagues for the selected sport.</p>
+      </ng-template>
+    </div>
+
+    <button type="reset" (click)="onReset()" class="btn btn-warning btn-block">Reset</button>
+    <button [disabled]="addRoundForm.invalid" type="submit" class="btn btn-success btn-block">Submit</button>
+  </form>
 </div>

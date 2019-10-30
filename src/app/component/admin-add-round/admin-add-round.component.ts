@@ -1,87 +1,145 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Sport } from 'src/app/model/sport.model';
-import { League } from 'src/app/model/league.model';
-import { Season } from 'src/app/model/season.model';
-import { SportService } from 'src/app/service/sport.service';
-import { LeagueService } from 'src/app/service/league.service';
-import { FormGroup, FormControl } from '@angular/forms';
-import { SeasonService } from 'src/app/service/season.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { dateValidator } from "src/app/validator/validator";
+import { Season } from "src/app/model/season.model";
+import { SeasonService } from "src/app/service/season.service";
+import { SportService } from "src/app/service/sport.service";
+import { LeagueService } from "src/app/service/league.service";
+import { Sport } from "src/app/model/sport.model";
+import { Subscription } from "rxjs";
+import { League } from "src/app/model/league.model";
+import { Round } from "src/app/model/round.model";
+import { RoundService } from "src/app/service/round.service";
 
 @Component({
-  selector: 'app-admin-add-round',
-  templateUrl: './admin-add-round.component.html',
-  styleUrls: ['./admin-add-round.component.scss']
+  selector: "app-admin-add-round",
+  templateUrl: "./admin-add-round.component.html",
+  styleUrls: ["./admin-add-round.component.scss"]
 })
-export class AdminAddRoundComponent implements OnInit {
-
+export class AdminAddRoundComponent implements OnInit, OnDestroy {
+  addRoundForm: FormGroup;
+  subscriptions: Subscription[] = [];
   sports: Sport[] = [];
   leagues: League[] = [];
   seasons: Season[] = [];
-
-  addRoundForm = new FormGroup({
-
-  });
+  requiredAndUpdateOnBlur = { validators: [Validators.required], updateOn: "blur" };
 
   constructor(
+    private fb: FormBuilder,
+    private seasonService: SeasonService,
     private sportService: SportService,
-    private leagueService: LeagueService,
-    private seasonService: SeasonService
-  ) { }
+    private roundService: RoundService,
+    private leagueService: LeagueService
+  ) {}
 
   ngOnInit() {
     this.getSports();
-  }
-
-  getSports(): void {
-    this.sportService.getSports().subscribe(data => {
-      this.sports = data;
+    this.addRoundForm = this.fb.group({
+      sports: ["", Validators.required],
+      leagues: ["", Validators.required],
+      seasons: ["", this.requiredAndUpdateOnBlur],
+      startDate: [
+        "",
+        { validators: [dateValidator, Validators.required], updateOn: "blur" }
+      ],
+      endDate: [
+        "",
+        { validators: [dateValidator, Validators.required], updateOn: "blur" }
+      ],
+      roundNumber: [
+        "",
+        { validators: [Validators.required, Validators.min(1)], updateOn: "blur" }
+      ]
     });
-  }
 
-  getLeaguesBySportId(sportId: number): void {
-    this.leagueService.getLeaguesBySportId(sportId).subscribe(data => {
-      if (data.length > 0) {
-        this.leagues = data;
-        this.getSeasonByLeagueId(data[0].id);
-      }
+    let sub = this.addRoundForm.controls.endDate.valueChanges.subscribe(change => {
+      this.addRoundForm.controls.startDate.updateValueAndValidity();
+      console.log("startDate: " + JSON.stringify(this.startDate().errors));
+      console.log("endDate: " + JSON.stringify(this.endDate().errors));
+      console.log("roundNumber: " + JSON.stringify(this.roundNumber().errors));
+      console.log("sport: " + JSON.stringify(this.sportAttr().errors));
+      console.log("league: " + JSON.stringify(this.leagueAttr().errors));
     });
-  }
-
-  getSeasonByLeagueId(leagueId: number): void {
-    this.seasonService.getSeasonsByLeagueId(leagueId).subscribe(data => {
-      this.seasons = data;
-    })
+    this.subscriptions.push(sub);
   }
 
   onSubmit(): void {
-    this.addRoundForm.controls.roundLimit.reset();
-    //this.addSeasonForm.controls.startDate.reset();
-    //this.addSeasonForm.controls.endDate.reset();
+    let round = new Round();
+    round.seasonId = this.seasonAttr().value;
+    round.startDate = this.startDate().value;
+    round.endDate = this.endDate().value;
+    round.roundNumber = this.roundNumber().value;
+
+    let addNext = next => this.onReset();
+    let addError = error => console.log("Error adding round: " + JSON.stringify(error));
+
+    let sub = this.roundService.addRound(round).subscribe(addNext, addError);
+    this.subscriptions.push(sub);
   }
 
   onReset(): void {
-    this.sports = [];
     this.leagues = [];
     this.seasons = [];
+    this.roundNumber().reset();
+    this.startDate().reset();
+    this.endDate().reset();
   }
 
-  sportChanged(sportId: number): void {
+  roundNumber() {
+    return this.addRoundForm.get("roundNumber");
+  }
+
+  startDate() {
+    return this.addRoundForm.get("startDate");
+  }
+
+  endDate() {
+    return this.addRoundForm.get("endDate");
+  }
+
+  seasonAttr() {
+    return this.addRoundForm.get("seasons");
+  }
+
+  sportAttr() {
+    return this.addRoundForm.get("sports");
+  }
+
+  leagueAttr() {
+    return this.addRoundForm.get("leagues");
+  }
+
+  getSports() {
+    let sub = this.sportService.getSports().subscribe(sports => {
+      this.sports = sports;
+    });
+    this.subscriptions.push(sub);
+  }
+
+  getLeaguesBySportId(sportId: number) {
+    let sub = this.leagueService.getLeaguesBySportId(sportId).subscribe(leagues => {
+      this.leagues = leagues;
+    });
+    this.subscriptions.push(sub);
+  }
+
+  getSeasonsByLeagueId(leagueId: number) {
+    let sub = this.seasonService.getSeasonsByLeagueId(leagueId).subscribe(seasons => {
+      this.seasons = seasons;
+    });
+    this.subscriptions.push(sub);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  sportChanged(sportId: number) {
     this.leagues = [];
-    this.seasons = [];
     this.getLeaguesBySportId(sportId);
   }
 
-  leagueChanged(leagueId: number): void {
-    this.seasons = [];
-    this.getSeasonByLeagueId(leagueId);
+  leagueChanged(leagueId: number) {
+    this.getSeasonsByLeagueId(leagueId);
   }
-
-  disableFormElement(element) {
-    element.disabled = true;
-  }
-
-  enableFormElement(element) {
-    element.disabled = false;
-  }
-
 }
