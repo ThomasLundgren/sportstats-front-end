@@ -16,7 +16,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   @Input() seasonId: number;
 
   season: Season;
-  subscriptions: Subscription[] = [];
+  subscriptions = new Subscription();
   static dateDummy: Date = new Date('December 17, 1995 03:24:00');
   tableDummy: Table = {
     season: {
@@ -54,7 +54,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
       this.unsubscribeFromSubscriptions();
       this.table = this.tableDummy;
     }else {
-      this.subscriptions.push(this.tableService.getTableBySeasonId(this.seasonId).subscribe(data => {
+      this.subscriptions.add(this.tableService.getTableBySeasonId(this.seasonId).subscribe(data => {
         this.table = data;
       }));
     }
@@ -67,8 +67,6 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   unsubscribeFromSubscriptions(): void {
-    this.subscriptions.forEach(sub => {
-      sub.unsubscribe();
-    });
+    this.subscriptions.unsubscribe();
   }
 }

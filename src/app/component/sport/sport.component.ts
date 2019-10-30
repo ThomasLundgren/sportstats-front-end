@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ["./sport.component.scss"]
 })
 export class SportComponent implements OnInit, OnDestroy {
-  subscriptions: Subscription[] = [];
+  subscriptions = new Subscription();
   sport: Sport = {
     id: 0,
     name: "",
@@ -20,7 +20,7 @@ export class SportComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private sportService: SportService) {}
 
   ngOnInit() {
-    this.subscriptions.push(this.route.paramMap.subscribe(params => {
+    this.subscriptions.add(this.route.paramMap.subscribe(params => {
       let sportId = parseInt(params.get("id"));
 
       this.sportService.getSports().subscribe(sports => {
@@ -33,6 +33,6 @@ export class SportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions.unsubscribe();
   }
 }
