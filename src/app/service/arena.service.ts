@@ -12,17 +12,9 @@ export class ArenaService {
 
   addArena(arena: Arena): void {
 
-    let url = "/api/arena/add/";
+    let url = "/api/arena/add/" + arena.arenaName;
 
-    const body = new HttpParams()
-      .set("", arena.arenaName);
-
-    let options = {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-    };
-
-    this.http.post<Arena>(url + arena.arenaName, JSON.stringify(arena))
+    this.http.post<Arena>(url, JSON.stringify(arena))
       .subscribe(
         res => { console.log("POST Request was successful: " + res) },
         err => { console.log("Error occurred: " + err.toString) });
