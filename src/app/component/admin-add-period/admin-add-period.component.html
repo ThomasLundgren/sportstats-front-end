@@ -1,10 +1,3 @@
-<!-- 
-    id: number;
-    gameId: number;
-    overtime: boolean;
-    goals: Goal[];
--->
-
 <div class="container">
     <h1 class="text-left">Add Period</h1>
     <form [formGroup]="addPeriodForm" (ngSubmit)="onSubmit()">
@@ -30,6 +23,10 @@
                 <option *ngFor="let game of games" value={{game.id}}>{{ game.gameInfo }}
                 </option>
             </select>
+            <div class="form-check" style="margin-top: 10px;">
+                <input type="checkbox" class="form-check-input" id="overtime">
+                <label class="form-check-label" for="overtime">Overtime</label>
+            </div>
         </div>
         <button type="reset" class="btn btn-secondary btn-space-right">Reset</button>
         <button type="submit" class="btn btn-primary">Submit</button>
