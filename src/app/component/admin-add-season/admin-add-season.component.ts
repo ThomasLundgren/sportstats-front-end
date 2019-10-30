@@ -20,7 +20,7 @@ export class AdminAddSeasonComponent implements OnInit, OnDestroy {
   standardValidator = [Validators.required, Validators.minLength(2)];
   roundValidator = [Validators.required, Validators.min(1), Validators.max(50)];
   addSeasonForm: FormGroup;
-  subscriptions: Subscription[] = [];
+  subscriptions = new Subscription();
 
   constructor(
     private sportService: SportService,
@@ -45,7 +45,7 @@ export class AdminAddSeasonComponent implements OnInit, OnDestroy {
       this.addSeasonForm.controls.startDate.updateValueAndValidity();
     });
 
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   control() {
@@ -56,14 +56,14 @@ export class AdminAddSeasonComponent implements OnInit, OnDestroy {
     let sub = this.sportService.getSports().subscribe(data => {
       this.sports = data;
     });
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   private getLeaguesBySportId(sportId: number): void {
     let sub = this.leagueService.getLeaguesBySportId(sportId).subscribe(data => {
       this.leagues = data;
     });
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   onSubmit(): void {
@@ -77,7 +77,7 @@ export class AdminAddSeasonComponent implements OnInit, OnDestroy {
     let addError = error => console.log("Error adding sport: " + JSON.stringify(error));
 
     let sub = this.seasonService.addSeason(season).subscribe(addNext, addError);
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   onReset(): void {
@@ -90,6 +90,6 @@ export class AdminAddSeasonComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions.unsubscribe();
   }
 }

@@ -10,9 +10,6 @@ export class RoundService {
   constructor(private http: HttpClient) { }
 
   addRound(round: Round) {
-    
-
-
     return this.http.post<Round>(
       `/api/round/add/${round.seasonId}/${round.startDate}/${round.endDate}/${round.roundNumber}`,
       JSON.stringify(round)

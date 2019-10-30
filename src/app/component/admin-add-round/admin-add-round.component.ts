@@ -18,7 +18,7 @@ import { RoundService } from "src/app/service/round.service";
 })
 export class AdminAddRoundComponent implements OnInit, OnDestroy {
   addRoundForm: FormGroup;
-  subscriptions: Subscription[] = [];
+  subscriptions = new Subscription();
   sports: Sport[] = [];
   leagues: League[] = [];
   seasons: Season[] = [];
@@ -60,7 +60,7 @@ export class AdminAddRoundComponent implements OnInit, OnDestroy {
       console.log("sport: " + JSON.stringify(this.sportAttr().errors));
       console.log("league: " + JSON.stringify(this.leagueAttr().errors));
     });
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   onSubmit(): void {
@@ -74,7 +74,7 @@ export class AdminAddRoundComponent implements OnInit, OnDestroy {
     let addError = error => console.log("Error adding round: " + JSON.stringify(error));
 
     let sub = this.roundService.addRound(round).subscribe(addNext, addError);
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   onReset(): void {
@@ -113,25 +113,25 @@ export class AdminAddRoundComponent implements OnInit, OnDestroy {
     let sub = this.sportService.getSports().subscribe(sports => {
       this.sports = sports;
     });
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   getLeaguesBySportId(sportId: number) {
     let sub = this.leagueService.getLeaguesBySportId(sportId).subscribe(leagues => {
       this.leagues = leagues;
     });
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   getSeasonsByLeagueId(leagueId: number) {
     let sub = this.seasonService.getSeasonsByLeagueId(leagueId).subscribe(seasons => {
       this.seasons = seasons;
     });
-    this.subscriptions.push(sub);
+    this.subscriptions.add(sub);
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions.unsubscribe();
   }
 
   sportChanged(sportId: number) {
