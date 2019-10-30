@@ -1,8 +1,26 @@
-<div *ngIf="!((teams == null) || (teams.length == 0)); else noTeams">
-    <h3>Teams</h3>
-    <div>
-        <ul class="list-group">
-            <button class="list-group-item list-group-item-action team-list" *ngFor="let team of teams">{{team.name}}</button>
-        </ul>
+<div class="d-flex flex-row item-container">
+
+    <div *ngIf="!((teams == null) || (teams.length == 0))" class="team-list">
+        <h3>Teams</h3>
+        <div>
+            <ul class="list-group">
+                <button *ngFor="let team of teams" (click)="clickOnTeam(team.id)" class="list-group-item list-group-item-action" >
+                    {{team.name}}
+                </button>            
+            </ul>
+        </div>
+    </div>
+    <div *ngIf="!(games == null)" class="game-list">
+        <h3>Homegames</h3>
+        <div *ngIf="(games.length == 0); else homeGames">
+            <h5>No games are played at the home arena for this team.</h5>
+        </div>
     </div>
 </div>
+    <ng-template #homeGames>
+        <ul class="list-group">
+            <li *ngFor="let game of games" class="list-group-item" >
+                {{game.gameDate}}: [{{game.homeTeamGamePoints}}p]
+            </li>            
+        </ul>
+    </ng-template>
