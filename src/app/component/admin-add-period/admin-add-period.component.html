@@ -27,7 +27,7 @@
             </select>
             <label for="game">Game</label>
             <select #selectGame class="form-control" id="game" formControlName="gameId" required>
-                <option *ngFor="let game of games" value={{game.id}}>{{game.id}}
+                <option *ngFor="let game of games" value={{game.id}}>{{ game.gameInfo }}
                 </option>
             </select>
         </div>
