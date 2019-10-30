@@ -13,3 +13,17 @@
 .btn-space-right {
   margin-right: 5px;
 }
+
+button:disabled,
+button[disabled]{
+  position: relative;
+  z-index: -1;
+}
+
+.alert-danger{
+  //position: relative;
+  //z-index: -1;
+  position: static;
+}
+
+

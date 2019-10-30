@@ -14,7 +14,7 @@
                 (click)="setActiveClass($event)" >
                 <fa-icon [icon]="faUserPlus"></fa-icon> Add
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01"> 
                 <a [routerLink]="['addsport']" class="dropdown-item text-center">
                     Sport
                 </a>
@@ -49,10 +49,10 @@
                 <fa-icon [icon]="faUserEdit"></fa-icon> Edit
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown02">
-                <a [routerLink]="[]" class="dropdown-item text-center" href="#">
+                <a [routerLink]="['connectteamtoseason']" class="dropdown-item text-center" href="#">
                     Connect Team To Season
                 </a>
-                <a [routerLink]="[]" class="dropdown-item text-center" href="#">
+                <a [routerLink]="['setteampointsforgame']" class="dropdown-item text-center" href="#">
                     Set Team Points For Game Id
                 </a>
             </div>

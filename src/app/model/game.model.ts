@@ -11,4 +11,5 @@ export class Game {
     homeTeamGamePoints: number;
     guestTeamGamePoints: number;
     periods: Period[];
+    gameInfo: string;
 }

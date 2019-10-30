@@ -29,6 +29,8 @@ import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-ar
 import { ProgressComponent } from './component/progress/progress.component';
 import { TeamsBySportComponent } from './component/teams-by-sport/teams-by-sport.component';
 import { UpcomingGamesByTeamComponent } from './upcoming-games-by-team/upcoming-games-by-team.component';
+import { AdminEditConnectTeamToSeasonComponent } from './component/admin-edit-connect-team-to-season/admin-edit-connect-team-to-season.component';
+import { AdminEditSetTeamPointsForGameComponent } from './component/admin-edit-set-team-points-for-game/admin-edit-set-team-points-for-game.component';
 
 @NgModule({
    declarations: [
@@ -54,6 +56,8 @@ import { UpcomingGamesByTeamComponent } from './upcoming-games-by-team/upcoming-
       ProgressComponent,
       TeamsBySportComponent,
       UpcomingGamesByTeamComponent
+      AdminEditConnectTeamToSeasonComponent,
+      AdminEditSetTeamPointsForGameComponent
    ],
    imports: [
       BrowserModule,

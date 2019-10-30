@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
   <div class="navbar-header">
-    <a class="navbar-brand" [routerLink] = "['']">
+    <a class="navbar-brand" [routerLink]="['']">
       <h3>Sportstats</h3>
     </a>
   </div>
@@ -11,36 +11,39 @@
 
   <div class="navbar-collapse collapse" id="navbarsExample03">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink] = "['']"><fa-icon [icon]="faHome"></fa-icon> Home<span class="sr-only">(current)</span></a>
+      <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+        <a class="nav-link" [routerLink]="['']">
+          <fa-icon [icon]="faHome"></fa-icon> Home<span class="sr-only">(current)</span>
+        </a>
       </li>
       <div *ngFor="let sport of sports">
         <div *ngIf="sport.leagues && sport.leagues.length > 0; then createDropdown else createButton"></div>
         <ng-template #createDropdown>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">{{sport.name}}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown03">
-              <a [routerLink] = "['/sport', sport.id]" class="dropdown-item" href="#">
+              <a [routerLink]="['/sport', sport.id]" class="dropdown-item">
                 <h6>{{sport.name}}</h6>
               </a>
               <div class="dropdown-divider"></div>
-              <a [routerLink] = "['/sport/league', league.id]" class="dropdown-item" *ngFor="let league of sport.leagues" href="#">{{league.name}}</a>
+              <a [routerLink]="['/sport/league', league.id]" class="dropdown-item" *ngFor="let league of sport.leagues"
+                href="#">{{league.name}}</a>
             </div>
           </li>
         </ng-template>
         <ng-template #createButton>
-            <li class="nav-item">
-                <a [routerLink] = "['/sport', sport.id]" class="nav-link" href="#">{{sport.name}}<span class="sr-only">(current)</span></a>
-              </li>
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+            <a [routerLink]="['/sport', sport.id]" class="nav-link" href="#">{{sport.name}}<span
+                class="sr-only">(current)</span></a>
+          </li>
         </ng-template>
       </div>
-      <li class="nav-item">
-          <a class="nav-link" [routerLink] = "['admin']"><fa-icon [icon]="faUserCog"></fa-icon> Admin<span class="sr-only">(current)</span></a>
-        </li>
+      <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+        <a class="nav-link" [routerLink]="['admin']">
+          <fa-icon [icon]="faUserCog"></fa-icon> Admin<span class="sr-only">(current)</span>
+        </a>
+      </li>
     </ul>
-    <form class="form-inline my-2 my-md-0">
-      <input class="form-control" type="text" placeholder="Search">
-    </form>
   </div>
 </nav>

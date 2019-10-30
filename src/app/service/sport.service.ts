@@ -28,6 +28,5 @@ export class SportService {
       .subscribe(
         res => { console.log("POST Request was successful: " + res) },
         err => { console.log("Error occurred: " + err.toString) });
-
   }
 }

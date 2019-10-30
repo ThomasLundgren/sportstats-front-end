@@ -38,7 +38,7 @@
               Round number is required.
             </div>
             <div *ngIf="roundNumber().errors?.min" class="alert alert-danger">
-              Round number must be greater than 1.
+              Round number must be greater than 0.
             </div>
           </div>
 
@@ -74,7 +74,7 @@
       </ng-template>
     </div>
 
-    <button type="reset" (click)="onReset()" class="btn btn-warning btn-block">Reset</button>
-    <button [disabled]="addRoundForm.invalid" type="submit" class="btn btn-success btn-block">Submit</button>
+    <button type="reset" (click)="onReset()" class="btn btn-secondary btn-space-right">Reset</button>
+    <button [disabled]="addRoundForm.invalid" type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
