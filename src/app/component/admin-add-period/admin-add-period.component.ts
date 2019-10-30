@@ -12,6 +12,7 @@ import { RoundService } from 'src/app/service/round.service';
 import { GameService } from 'src/app/service/game.service';
 import { Subscription } from 'rxjs';
 import { TeamService } from 'src/app/service/team.service';
+import { Team } from 'src/app/model/team.model';
 
 @Component({
   selector: 'app-admin-add-period',
@@ -74,7 +75,7 @@ export class AdminAddPeriodComponent implements OnInit {
   getGamesBySeasonId(seasonId: number): void{
     this.subscriptions.add(this.gameService.getGamesBySeasonId(seasonId).subscribe(data => {
       this.games = data;
-      this.getCurrentGameInfo();
+      this.setGameInfo();
     }));
   }
 
@@ -96,30 +97,24 @@ export class AdminAddPeriodComponent implements OnInit {
     this.getGamesBySeasonId(seasonId);
   }
 
-  getCurrentGameInfo(): void{
-
-    let teamService = this.teamService;
+  setGameInfo(): void{
 
     this.games.forEach(e => {
 
-      let gameInfoRow = "";
+      e.gameInfo = "";
 
-      this.subscriptions.add(teamService.getTeamById(e.homeTeamId).subscribe(data => {
-        gameInfoRow += data.name;
+      this.subscriptions.add(this.teamService.getTeamById(e.homeTeamId).subscribe(data => {
+        e.gameInfo += data.name + " - ";
+        this.subscriptions.add(this.teamService.getTeamById(e.guestTeamId).subscribe(data => {
+          e.gameInfo += data.name;
+        }));
       }));
 
-      gameInfoRow += " - ";
-
-      this.subscriptions.add(teamService.getTeamById(e.guestTeamId).subscribe(data => {
-        gameInfoRow += data.name;
-      }));
-
-      gameInfoRow += " " + e.gameDate;
-
-      this.gamesInfo.push(gameInfoRow);
+      
 
     });
 
+    
   }
 
 }
