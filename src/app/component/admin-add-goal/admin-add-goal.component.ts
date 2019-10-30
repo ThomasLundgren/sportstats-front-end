@@ -52,6 +52,19 @@ export class AdminAddGoalComponent implements OnInit, OnDestroy {
     this.subscriptions.add(sub);
   }
 
+  onSubmit() {
+    
+  }
+
+  onReset() {
+    this.leagues = [];
+    this.seasons = [];
+    this.games = [];
+    this.periods = [];
+    this.points().reset();
+    this.time().reset();
+  }
+
   points() {
     return this.goalForm.get("points");
   }
