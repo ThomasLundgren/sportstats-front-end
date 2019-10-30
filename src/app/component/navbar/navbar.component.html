@@ -11,7 +11,7 @@
 
   <div class="navbar-collapse collapse" id="navbarsExample03">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
         <a class="nav-link" [routerLink]="['']">
           <fa-icon [icon]="faHome"></fa-icon> Home<span class="sr-only">(current)</span>
         </a>
@@ -19,11 +19,11 @@
       <div *ngFor="let sport of sports">
         <div *ngIf="sport.leagues && sport.leagues.length > 0; then createDropdown else createButton"></div>
         <ng-template #createDropdown>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">{{sport.name}}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown03">
-              <a [routerLink]="['/sport', sport.id]" class="dropdown-item" href="#">
+              <a [routerLink]="['/sport', sport.id]" class="dropdown-item">
                 <h6>{{sport.name}}</h6>
               </a>
               <div class="dropdown-divider"></div>
@@ -33,13 +33,13 @@
           </li>
         </ng-template>
         <ng-template #createButton>
-          <li class="nav-item">
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
             <a [routerLink]="['/sport', sport.id]" class="nav-link" href="#">{{sport.name}}<span
                 class="sr-only">(current)</span></a>
           </li>
         </ng-template>
       </div>
-      <li class="nav-item">
+      <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
         <a class="nav-link" [routerLink]="['admin']">
           <fa-icon [icon]="faUserCog"></fa-icon> Admin<span class="sr-only">(current)</span>
         </a>
