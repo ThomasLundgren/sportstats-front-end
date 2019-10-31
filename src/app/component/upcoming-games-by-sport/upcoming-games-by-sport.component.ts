@@ -22,7 +22,6 @@ import { TeamService } from "src/app/service/team.service";
   styleUrls: ["./upcoming-games-by-sport.component.css"]
 })
 export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnInit {
-
   @Input() sport: Sport;
   private subcriptions = new Subscription();
   public upcomingGames;
@@ -33,11 +32,9 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
     private seasonService: SeasonService,
     private gameService: GameService,
     private teamService: TeamService
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes["sport"].firstChange) {
@@ -55,14 +52,18 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
 
   ngOnDestroy() {
     this.subcriptions.unsubscribe();
-
   }
 
   private setLeagues(): void {
     let sub = this.leagueService.getLeaguesBySportId(this.sport.id).subscribe(leagues => {
       this.sport.leagues = leagues;
-      if(leagues.length == 0){ this.isLoading = false;}
+      if (leagues.length == 0) {
+        this.isLoading = false;
+      }
       leagues.forEach(league => this.setSeasonsForLeague(league));
+    },
+    () => {
+      this.isLoading = false;
     });
     this.subcriptions.add(sub);
   }
@@ -86,7 +87,12 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
     this.subcriptions.add(sub);
   }
 
-  private addHomeTeam(homeTeamId: number, awayTeamId: number, game: Game, leagueName: string) {
+  private addHomeTeam(
+    homeTeamId: number,
+    awayTeamId: number,
+    game: Game,
+    leagueName: string
+  ) {
     let sub = this.teamService.getTeamById(homeTeamId).subscribe(team => {
       game = { ...game, ...{ homeTeam: team } };
       this.addAwayTeam(awayTeamId, game, leagueName);
@@ -120,5 +126,4 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
       }
     }
   }
-
 }

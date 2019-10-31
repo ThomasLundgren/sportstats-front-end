@@ -28,7 +28,7 @@ import { AdminAddGoalComponent } from './component/admin-add-goal/admin-add-goal
 import { AdminAddArenaComponent } from './component/admin-add-arena/admin-add-arena.component';
 import { ProgressComponent } from './component/progress/progress.component';
 import { TeamsBySportComponent } from './component/teams-by-sport/teams-by-sport.component';
-import { UpcomingGamesByTeamComponent } from './upcoming-games-by-team/upcoming-games-by-team.component';
+import { UpcomingGamesByTeamComponent } from './component/upcoming-games-by-team/upcoming-games-by-team.component';
 import { AdminEditConnectTeamToSeasonComponent } from './component/admin-edit-connect-team-to-season/admin-edit-connect-team-to-season.component';
 import { AdminEditSetTeamPointsForGameComponent } from './component/admin-edit-set-team-points-for-game/admin-edit-set-team-points-for-game.component';
 
