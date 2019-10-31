@@ -24,7 +24,7 @@ import { TeamService } from "src/app/service/team.service";
 export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnInit {
 
   @Input() sport: Sport;
-  private subcriptions: Subscription[] = [];
+  private subcriptions = new Subscription();
   public upcomingGames;
   public isLoading = true;
 
@@ -54,7 +54,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
   }
 
   ngOnDestroy() {
-    this.subcriptions.forEach(sub => sub.unsubscribe);
+    this.subcriptions.unsubscribe();
 
   }
 
@@ -64,7 +64,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
       if(leagues.length == 0){ this.isLoading = false;}
       leagues.forEach(league => this.setSeasonsForLeague(league));
     });
-    this.subcriptions.push(sub);
+    this.subcriptions.add(sub);
   }
 
   private setSeasonsForLeague(league: League): void {
@@ -74,7 +74,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
         this.setGames(season, league.name);
       });
     });
-    this.subcriptions.push(sub);
+    this.subcriptions.add(sub);
   }
 
   private setGames(season: Season, leagueName: string): void {
@@ -83,7 +83,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
         this.addHomeTeam(game.homeTeamId, game.guestTeamId, game, leagueName);
       });
     });
-    this.subcriptions.push(sub);
+    this.subcriptions.add(sub);
   }
 
   private addHomeTeam(homeTeamId: number, awayTeamId: number, game: Game, leagueName: string) {
@@ -91,7 +91,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
       game = { ...game, ...{ homeTeam: team } };
       this.addAwayTeam(awayTeamId, game, leagueName);
     });
-    this.subcriptions.push(sub);
+    this.subcriptions.add(sub);
   }
 
   private addAwayTeam(awayTeamId: number, game: Game, leagueName) {
@@ -100,7 +100,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
       this.addGame(game, leagueName);
       this.isLoading = false;
     });
-    this.subcriptions.push(sub);
+    this.subcriptions.add(sub);
   }
 
   private addGame(game: Game, leagueName: string) {
