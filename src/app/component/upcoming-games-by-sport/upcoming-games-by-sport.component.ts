@@ -3,8 +3,7 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  OnDestroy,
-  OnInit
+  OnDestroy
 } from "@angular/core";
 import { Season } from "../../model/season.model";
 import { SeasonService } from "../../service/season.service";
@@ -21,7 +20,8 @@ import { TeamService } from "src/app/service/team.service";
   templateUrl: "./upcoming-games-by-sport.component.html",
   styleUrls: ["./upcoming-games-by-sport.component.css"]
 })
-export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnInit {
+export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy {
+
   @Input() sport: Sport;
   private subcriptions = new Subscription();
   public upcomingGames;
@@ -32,9 +32,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
     private seasonService: SeasonService,
     private gameService: GameService,
     private teamService: TeamService
-  ) {}
-
-  ngOnInit(): void {}
+  ) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes["sport"].firstChange) {
@@ -52,14 +50,13 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
 
   ngOnDestroy() {
     this.subcriptions.unsubscribe();
+
   }
 
   private setLeagues(): void {
     let sub = this.leagueService.getLeaguesBySportId(this.sport.id).subscribe(leagues => {
       this.sport.leagues = leagues;
-      if (leagues.length == 0) {
-        this.isLoading = false;
-      }
+      if(leagues.length == 0){ this.isLoading = false;}
       leagues.forEach(league => this.setSeasonsForLeague(league));
     },
     () => {
@@ -87,12 +84,7 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
     this.subcriptions.add(sub);
   }
 
-  private addHomeTeam(
-    homeTeamId: number,
-    awayTeamId: number,
-    game: Game,
-    leagueName: string
-  ) {
+  private addHomeTeam(homeTeamId: number, awayTeamId: number, game: Game, leagueName: string) {
     let sub = this.teamService.getTeamById(homeTeamId).subscribe(team => {
       game = { ...game, ...{ homeTeam: team } };
       this.addAwayTeam(awayTeamId, game, leagueName);
@@ -126,4 +118,5 @@ export class UpcomingGamesBySportComponent implements OnChanges, OnDestroy, OnIn
       }
     }
   }
+
 }
